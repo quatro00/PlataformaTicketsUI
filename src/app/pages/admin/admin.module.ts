@@ -42,6 +42,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SucursalComponent } from './sucursal/sucursal.component';
 import { DepartamentoComponent } from './departamento/departamento.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
 const antdModule = [
@@ -53,6 +54,7 @@ const antdModule = [
   NzGridModule,
   NzSkeletonModule,
   AdminRoutingModule,
+  NzModalModule,
   //FeaturesRoutingModule,
   FormsModule,
   ReactiveFormsModule,
