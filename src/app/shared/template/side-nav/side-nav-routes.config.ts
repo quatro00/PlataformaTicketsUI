@@ -2,7 +2,7 @@ import {
   SideNavInterface
 } from '../../interfaces/side-nav.type';
 
-export const ROUTES: SideNavInterface[] = [
+export const AdminRoutes: SideNavInterface[] = [
   
   {
     path: 'administrador/dashboard',
@@ -79,3 +79,36 @@ export const ROUTES: SideNavInterface[] = [
     submenu:[]
   },
 ]
+
+export const AgenteRoutes: SideNavInterface[] = [
+  
+  {
+    path: 'agente/dashboard',
+    title: 'Dashboard',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'appstore-add',
+    submenu:[]
+}]
+
+  export const ClienteRoutes: SideNavInterface[] = [
+  
+    {
+      path: 'cliente/dashboard',
+      title: 'Dashboard',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'appstore-add',
+      submenu:[]
+}]
+
+  export const SupervisorRoutes: SideNavInterface[] = [
+
+    {
+      path: 'supervisor/dashboard',
+      title: 'Dashboard',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'appstore-add',
+      submenu:[]
+}]

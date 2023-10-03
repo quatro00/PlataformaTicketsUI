@@ -1,6 +1,8 @@
 import { Component  } from '@angular/core';
-import { ROUTES } from './side-nav-routes.config';
+import { AdminRoutes, AgenteRoutes, ClienteRoutes, SupervisorRoutes } from './side-nav-routes.config';
 import { ThemeConstantService } from '../../services/theme-constant.service';
+import { UserModel } from 'src/app/models/auth/user-model.models';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-sidenav',
@@ -9,18 +11,33 @@ import { ThemeConstantService } from '../../services/theme-constant.service';
 
 export class SideNavComponent{
 
+    user?:UserModel;
     public menuItems: any[]
     isFolded : boolean;
     isSideNavDark : boolean;
     isExpand : boolean;
 
-    constructor( private themeService: ThemeConstantService) {}
+    constructor( private themeService: ThemeConstantService,
+        private authService: AuthService,) {}
 
     ngOnInit(): void {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        //this.menuItems = AdminRoutes.filter(menuItem => menuItem);
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
         this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
+
+        this.authService.user()
+        .subscribe({
+            next:(response) =>{
+                this.user = response;
+            }
+        });
+        this.user = this.authService.getUser();
+        if(this.user.roles.includes('Administrador')){ this.menuItems = [...AdminRoutes]}
+        if(this.user.roles.includes('Agente')){ this.menuItems = [...AgenteRoutes]}
+        if(this.user.roles.includes('Cliente')){ this.menuItems = [...ClienteRoutes]}
+        if(this.user.roles.includes('Supervisor')){ this.menuItems = [...SupervisorRoutes]}
+        
     }
 
     ngAfterViewInit(): void{
