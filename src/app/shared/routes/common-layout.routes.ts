@@ -2,11 +2,7 @@ import { Routes } from '@angular/router';
 
 export const CommonLayout_ROUTES: Routes = [
 
-    //Dashboard
-    {
-        path: 'dashboard',
-        loadChildren: () => import('../../dashboard/dashboard.module').then(m => m.DashboardModule),
-    },
+   
     {
         path: 'administrador',
         loadChildren: () => import('../../pages/admin/admin.module').then(m => m.AdminModule),

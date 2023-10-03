@@ -1,0 +1,2 @@
+Generar un nuevo componente
+ng generate component pages/agente/dashboard

@@ -7,10 +7,10 @@ import { ForgetPassComponent } from './forget-pass/forget-pass.component';
 
 const routes: Routes = [
     {
-        path: 'login-1',
+        path: 'login',
         component: Login1Component,
         data: {
-            title: 'Login 1'
+            title: 'Login'
         }
     },
     {
