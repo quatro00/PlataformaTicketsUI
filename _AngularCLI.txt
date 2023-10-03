@@ -1,2 +1,3 @@
 Generar un nuevo componente
-ng generate component pages/agente/dashboard
+ng generate component pages/admin/sucursal/sucursal
+ng generate component pages/admin/sucursal/departamento

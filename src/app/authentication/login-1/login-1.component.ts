@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, UntypedFormGroup, Validators } from '@angular/f
 import  socialIcons  from './../../../assets/data/pages/social-items.json';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { LoginRequest } from '../../models/auth/login-request.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     templateUrl: './login-1.component.html'
@@ -16,14 +21,43 @@ export class Login1Component {
 
   validateForm!: UntypedFormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private location: Location) {}
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private location: Location,
+    private authService: AuthService,
+    private cookieService: CookieService) {}
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-      this.router.navigate(['/administrador/dashboard']).then(() => {
-        window.location.reload();
-      });
+      var request:LoginRequest = {
+        Username : this.validateForm.value.username,
+        Password : this.validateForm.value.password
+      };
+      
+     this.authService.Login(request)
+     .subscribe({
+      error(err) {
+        console.log('error',err);
+      },
+      next:(response)=>{
+        //set auth cookie
+        console.log(response);
+        this.cookieService.set('Authorization',`Bearer ${response.token}`, undefined, '/', undefined, true, 'Strict');
+        this.authService.setUser({
+          nombre :response.nombre,
+          apellidos: response.apellidos,
+          email: response.email,
+          roles: response.roles,
+          username: response.username
+        });
+
+        this.router.navigateByUrl('/administrador/dashboard').then(() => {
+          window.location.reload();
+        });;
+        
+      }
+     });
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -45,9 +79,15 @@ export class Login1Component {
   password?: string;
 
   ngOnInit(): void {
+    this.authService.TestApi()
+    .subscribe({
+      next:(response)=>{
+        console.log(response);
+      }
+    });
     this.validateForm = this.fb.group({
-      userName: ['hexadash@dm.com', [Validators.required]],
-      password: ['123456', [Validators.required]],
+      username: ['admin@imss.gob.mx', [Validators.required]],
+      password: ['password', [Validators.required]],
       remember: [true],
     });
   }

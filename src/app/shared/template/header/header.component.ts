@@ -4,6 +4,8 @@ import messages from '../../../../assets/data/global/header/messages.json';
 import notification from '../../../../assets/data/global/header/notification.json';
 import authorMenu from '../../../../assets/data/global/header/author-menu.json';
 import settings from '../../../../assets/data/global/header/settings.json';
+import { AuthService } from '../../../services/auth.service';
+import { UserModel } from 'src/app/models/auth/user-model.models';
 
 @Component({
     selector: 'app-header',
@@ -12,6 +14,7 @@ import settings from '../../../../assets/data/global/header/settings.json';
 
 export class HeaderComponent{
 
+    user?:UserModel;
     searchVisible : boolean = false;
     quickViewVisible : boolean = false;
     isFolded : boolean;
@@ -21,7 +24,10 @@ export class HeaderComponent{
     appAuthorMenu = authorMenu.appAuthorMenu;
     appSettings = settings.appSettings;
 
-    constructor( private themeService: ThemeConstantService) {}
+    constructor( 
+        private themeService: ThemeConstantService,
+        private authService: AuthService
+        ) {}
 
     signOut(): void {
       console.log('User signed out!');
@@ -30,6 +36,14 @@ export class HeaderComponent{
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
+        this.authService.user()
+        .subscribe({
+            next:(response) =>{
+                this.user = response;
+            }
+        });
+        this.user = this.authService.getUser();
+        console.log(this.user);
     }
 
     toggleFold() {
