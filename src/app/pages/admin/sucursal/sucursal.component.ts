@@ -2,6 +2,8 @@ import { Component, TemplateRef } from '@angular/core';
 import { SucursalModel } from 'src/app/models/sucursal-model';
 import { SucursalService } from 'src/app/services/sucursal.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { SucursalRequestModel } from 'src/app/models/sucursal/sucursal-request';
 
 @Component({
   selector: 'app-sucursal',
@@ -12,24 +14,37 @@ export class SucursalComponent {
   isLoading = true;
   showContent = false;
 
+  //variables para la tabla
   value = '';
   statusFilter = '';
   contactSearchValue = '';
   data: SucursalModel[] = [];
   filteredData: SucursalModel[] = [];
 
+  validateForm!: UntypedFormGroup;
 
   constructor( 
+    private fb: FormBuilder, 
     private sucursalService: SucursalService,
     private modalService: NzModalService
     ) {}
 
   ngOnInit() {
     // Simulate loading time
+    this.validateForm = this.fb.group({
+      clave: ['',[Validators.required]],
+      nombre: ['',[Validators.required]],
+      direccion: ['',[Validators.required]],
+      telefono: ['',[Validators.required]],
+      telefono2: ['',[Validators.required]],
+    });
+
     this.loadData();
   }
+
   loadData() {
     // Simulate an asynchronous data loading operation
+    //carga de data para la tabla
     this.sucursalService.getSucursales()
     .subscribe({
       next:(response)=>{
@@ -41,22 +56,22 @@ export class SucursalComponent {
         this.showContent = true;
       }
     })
-
-  
-
-    /*
-    setTimeout(() => {
-      this.isLoading = false;
-      this.showContent = true;
-    }, 1000);
-    */
   }
 
+  private applyFilters(): SucursalModel[] {
+    return this.data.filter((data) =>
+      data.nombre.toLowerCase().includes(this.contactSearchValue.toLowerCase()) ||
+      data.clave.toLowerCase().includes(this.contactSearchValue.toLowerCase()) 
+    );
+  }
+
+  //metodos para la forma
   filterItems(): void {
     this.filteredData = this.applyFilters();
   }
 
   showNew(newItem: TemplateRef<{}>) {
+    this.validateForm.reset();
     const modal = this.modalService.create({
         nzTitle: 'Informacion de la sucursal',
         nzContent: newItem,
@@ -64,22 +79,99 @@ export class SucursalComponent {
             {
                 label: 'Agregar sucursal',
                 type: 'primary',
-                onClick: () => this.modalService.confirm(
-                    {
-                        nzTitle: 'Are you sure you want to create this project?',
-                        nzOnOk: () => this.modalService.closeAll()
-                    }
-                )
+                onClick: () => {
+                  this.submitForm();
+                }
             },
         ],
         nzWidth: 620
     })
-}
+  }
 
-  private applyFilters(): SucursalModel[] {
-    return this.data.filter((data) =>
-      data.nombre.toLowerCase().includes(this.contactSearchValue.toLowerCase()) ||
-      data.clave.toLowerCase().includes(this.contactSearchValue.toLowerCase()) 
-    );
+  showEdit(newItem: TemplateRef<{}>, sucursal:SucursalModel) {
+    
+    this.validateForm.setValue({
+      nombre:sucursal.nombre,
+      clave:sucursal.clave,
+      direccion:sucursal.direccion,
+      telefono:sucursal.telefono,
+      telefono2:sucursal.telefono2,
+    })
+
+
+    const modal = this.modalService.create({
+        nzTitle: 'Informacion de la sucursal',
+        nzContent: newItem,
+        nzFooter: [
+            {
+                label: 'Actualizar sucursal',
+                type: 'primary',
+                onClick: () => {
+                  this.submitUpdForm(sucursal.id);
+                }
+            },
+        ],
+        nzWidth: 620
+    })
+  }
+
+  submitUpdForm(id:string): void {
+    console.log(this.validateForm.valid);
+    if (this.validateForm.valid) {
+      console.log(this.validateForm);
+      var request:SucursalRequestModel = {
+        nombre : this.validateForm.value.nombre,
+        clave : this.validateForm.value.clave,
+        direccion : this.validateForm.value.direccion,
+        telefono : this.validateForm.value.telefono,
+        telefono2 : this.validateForm.value.telefono2,
+        activo : true,
+      };
+      this.sucursalService.updateSucursal(id, request)
+      .subscribe({
+        next:(response)=>{
+          this.modalService.closeAll();
+          this.validateForm.reset();
+          this.loadData();
+        }
+      })
+    } else {
+      Object.values(this.validateForm.controls).forEach((control) => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
+  }
+
+  submitForm(): void {
+    console.log(this.validateForm.valid);
+    if (this.validateForm.valid) {
+      console.log(this.validateForm);
+      var request:SucursalRequestModel = {
+        nombre : this.validateForm.value.nombre,
+        clave : this.validateForm.value.clave,
+        direccion : this.validateForm.value.direccion,
+        telefono : this.validateForm.value.telefono,
+        telefono2 : this.validateForm.value.telefono2,
+        activo : true,
+      };
+      this.sucursalService.createSucursal(request)
+      .subscribe({
+        next:(response)=>{
+          this.modalService.closeAll();
+          this.validateForm.reset();
+          this.loadData();
+        }
+      })
+    } else {
+      Object.values(this.validateForm.controls).forEach((control) => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
   }
 }

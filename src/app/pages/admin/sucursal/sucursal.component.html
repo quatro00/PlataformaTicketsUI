@@ -7,35 +7,35 @@
   <!-- skeleton -->
   <div nz-col nzXs="24" nzMd="12">
     <ng-template #newItem>
-      <form nz-form nzLayout="vertical">
+      <form nz-form nzLayout="vertical" [formGroup]="validateForm" (ngSubmit)="submitForm()">
         <nz-form-item>
-          <nz-form-control>
+          <nz-form-control nzErrorTip="Ingresa una clave.">
             <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Clave:</nz-form-label>
-            <input class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="text" nz-input placeholder="Input Name">
+            <input formControlName="clave" style="color:white" class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="text" nz-input placeholder="Clave de la sucursal" #nombre>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-control>
+          <nz-form-control nzErrorTip="Ingresa un nombre.">
             <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Nombre:</nz-form-label>
-            <input class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="email" nz-input placeholder="name@example.com">
+            <input formControlName="nombre" style="color:white" class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="text" nz-input placeholder="Nombre de la sucursal">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-control>
+          <nz-form-control nzErrorTip="Ingresa una dirección.">
             <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Direccion:</nz-form-label>
-            <input class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="email" nz-input placeholder="+440 2546 5236">
+            <input formControlName="direccion" style="color:white" class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="text" nz-input placeholder="Dirección de la sucursal">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-control>
+          <nz-form-control nzErrorTip="Ingresa un teléfono.">
             <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Telefono:</nz-form-label>
-            <input class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="email" nz-input placeholder="Input Position">
+            <input formControlName="telefono" style="color:white" class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="text" nz-input placeholder="Teléfono de la sucursal">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="mb-0">
-          <nz-form-control>
+          <nz-form-control nzErrorTip="Ingresa un teléfono.">
             <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Telefono 2:</nz-form-label>
-            <input class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="email" nz-input placeholder="Company Name">
+            <input formControlName="telefono2" style="color:white" class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10" type="text" nz-input placeholder="Teléfono 2 de la sucursal">
           </nz-form-control>
         </nz-form-item>
       </form>
@@ -86,6 +86,8 @@
                       <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">Teléfono</th>
                       <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">Teléfono 2</th>
                       <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-start text-dark dark:text-white/[.87] text-[15px] font-medium border-none before:hidden capitalize">Disponible</th>
+                      <th class="bg-regularBG dark:bg-[#323440] px-[20px] py-[16px] text-end text-dark/[.85] dark:text-white/[.87] text-[15px] font-medium border-none before:hidden rounded-e-[10px] capitalize">
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -96,6 +98,33 @@
                       <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{ person.telefono }}</td>
                       <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{ person.telefono2 }}</td>
                       <td class="ltr:pr-[20px] rtl:pl-[20px] text-dark dark:text-white/[.87] text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{ person.activo }}</td>
+                      <td class="text-right ps-[20px] pe-[20px] py-[9px] font-normal last:text-end capitalize text-[14px] text-dark dark:text-white/[.87] border-none group-hover:bg-transparent">
+                        <div class="flex items-center gap-[10px]">
+                          <a class="text-light-extra text-18" nz-dropdown nzPlacement="bottomRight" nzTrigger="click"
+                              [nzDropdownMenu]="projectListSetting2">
+                              <span nz-icon nzType="more" nzTheme="outline"></span>
+                            </a>
+                            <nz-dropdown-menu #projectListSetting2="nzDropdownMenu">
+                              <ul
+                                class="block bg-white dark:bg-[#1b1e2b] shadow-regular dark:shadow-[0_5px_30px_rgba(1,4,19,.60)] rounded-4 capitalize"
+                                nz-menu nzSelectable>
+                                <li  (click)="showEdit(newItem, person)"
+                                  class="flex items-center text-theme-gray dark:text-white/60 hover:bg-primary/10 hover:text-primary dark:hover:bg-white/10 px-3 py-1.5 text-sm dark:hover:text-white/[.87] gap-[6px]"
+                                  nz-menu-item>
+                                  <i nz-icon nzType="edit" theme="outline"></i>
+                                  <span class="m-l-10">Editar</span>
+                                </li>
+                                <li
+                                  class="flex items-center text-theme-gray dark:text-white/60 hover:bg-primary/10 hover:text-primary dark:hover:bg-white/10 px-3 py-1.5 text-sm dark:hover:text-white/[.87] gap-[6px]"
+                                  nz-menu-item>
+                                  <i nz-icon nzType="delete" theme="outline"></i>
+                                  <span *ngIf="person.acivo">Desactivar</span>
+                                  <span *ngIf="!person.acivo">Activar</span>
+                                </li>
+                              </ul>
+                            </nz-dropdown-menu>
+                        </div>
+                    </td>
                     </tr>
                   </tbody>
                 </nz-table>
