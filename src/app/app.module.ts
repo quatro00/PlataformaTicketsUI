@@ -22,6 +22,9 @@ import { CommonLayoutComponent } from './layouts/common-layout/common-layout.com
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 
 import { ThemeConstantService } from './shared/services/theme-constant.service';
+import { ServicesInterceptorInterceptor } from './interceptors/services-interceptor.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 registerLocaleData(en);
 
@@ -45,6 +48,12 @@ registerLocaleData(en);
     ],
     providers: [
         {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ServicesInterceptorInterceptor,
+            multi: true
+
+        },
+        {
             provide: NZ_I18N,
             useValue: en_US,
         },
@@ -52,7 +61,8 @@ registerLocaleData(en);
             provide: LocationStrategy,
             useClass: PathLocationStrategy
         },
-        ThemeConstantService
+        ThemeConstantService,
+        NzMessageService
     ],
     bootstrap: [AppComponent]
 })

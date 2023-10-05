@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
 import { LoginRequest } from '../../models/auth/login-request.model';
 import { CookieService } from 'ngx-cookie-service';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { concatMap } from 'rxjs';
+import { catchError, concatMap, map, of } from 'rxjs';
+import { LoginResponse } from 'src/app/models/auth/login-response.model';
 
 @Component({
     templateUrl: './login-1.component.html'
@@ -28,10 +29,10 @@ export class Login1Component {
     private router: Router, 
     private location: Location,
     private authService: AuthService,
-    private cookieService: CookieService,
-    private msg: NzMessageService) {}
+    private cookieService: CookieService) {}
 
     startShowMessages(): void {
+      /*
       this.msg
         .loading('Action in progress', { nzDuration: 2500 })
         .onClose!.pipe(
@@ -41,6 +42,7 @@ export class Login1Component {
         .subscribe(() => {
           console.log('All completed!');
         });
+        */
     }
 
   submitForm(): void {
@@ -54,12 +56,11 @@ export class Login1Component {
      .subscribe({
       
       error(err) {
-        console.log('error',this.msg);
+        console.log('error',err);
       },
-      next:(response)=>{
+      next:(response:LoginResponse)=>{
         //set auth cookie
-        
-        console.log(response);
+        console.log('seteamos el usuario',response);
         this.cookieService.set('Authorization',`Bearer ${response.token}`, undefined, '/', undefined, true, 'Strict');
         this.authService.setUser({
           nombre :response.nombre,
@@ -71,8 +72,7 @@ export class Login1Component {
 
         this.router.navigateByUrl('/administrador/dashboard').then(() => {
           window.location.reload();
-        });;
-        
+        });; 
       }
      });
     } else {
@@ -96,13 +96,15 @@ export class Login1Component {
   password?: string;
 
   ngOnInit(): void {
-    this.startShowMessages();
-    this.authService.TestApi()
+    //this.startShowMessages();
+    
+    /*this.authService.TestApi()
     .subscribe({
       next:(response)=>{
         console.log(response);
       }
     });
+    */
     this.validateForm = this.fb.group({
       username: ['admin@imss.gob.mx', [Validators.required]],
       password: ['password', [Validators.required]],
