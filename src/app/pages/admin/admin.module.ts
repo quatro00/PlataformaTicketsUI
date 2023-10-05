@@ -44,7 +44,7 @@ import { DepartamentoComponent } from './departamento/departamento.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
-
+import { NzMessageModule } from 'ng-zorro-antd/message';
 const antdModule = [
   NzDropDownModule,
   AngularSvgIconModule.forRoot(),
@@ -79,6 +79,7 @@ const antdModule = [
   NzToolTipModule,
   //NzStepsModule,
   //GoogleMapsModule
+  NzMessageModule
 
 ]
 
@@ -98,6 +99,9 @@ const antdModule = [
     NzCardModule,
     HttpClientModule,
     ...antdModule
-  ]
+  ],
+  providers: [
+    NzMessageService
+]
 })
 export class AdminModule { }

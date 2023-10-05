@@ -15,6 +15,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { Login1Component } from './login-1/login-1.component';
 import { SignUp1Component } from './sign-up-1/sign-up-1.component';
 import { ForgetPassComponent } from './forget-pass/forget-pass.component';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 
 const antdModule= [
     NzFormModule,
@@ -22,6 +23,7 @@ const antdModule= [
     NzButtonModule,
     NzCardModule,
     NzCheckboxModule,
+    NzMessageModule,
     AngularSvgIconModule.forRoot(),
 ]
 
@@ -37,7 +39,10 @@ const antdModule= [
         Login1Component,
         SignUp1Component,
         ForgetPassComponent
-    ]
+    ],
+  providers: [
+    NzMessageService
+]
 })
 
 export class AuthenticationModule {}

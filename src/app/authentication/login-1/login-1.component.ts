@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { LoginRequest } from '../../models/auth/login-request.model';
 import { CookieService } from 'ngx-cookie-service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { concatMap } from 'rxjs';
 
 @Component({
     templateUrl: './login-1.component.html'
@@ -26,7 +28,20 @@ export class Login1Component {
     private router: Router, 
     private location: Location,
     private authService: AuthService,
-    private cookieService: CookieService) {}
+    private cookieService: CookieService,
+    private msg: NzMessageService) {}
+
+    startShowMessages(): void {
+      this.msg
+        .loading('Action in progress', { nzDuration: 2500 })
+        .onClose!.pipe(
+          concatMap(() => this.msg.success('Loading finished', { nzDuration: 2500 }).onClose!),
+          concatMap(() => this.msg.info('Loading finished is finished', { nzDuration: 2500 }).onClose!)
+        )
+        .subscribe(() => {
+          console.log('All completed!');
+        });
+    }
 
   submitForm(): void {
     if (this.validateForm.valid) {
@@ -37,11 +52,13 @@ export class Login1Component {
       
      this.authService.Login(request)
      .subscribe({
+      
       error(err) {
-        console.log('error',err);
+        console.log('error',this.msg);
       },
       next:(response)=>{
         //set auth cookie
+        
         console.log(response);
         this.cookieService.set('Authorization',`Bearer ${response.token}`, undefined, '/', undefined, true, 'Strict');
         this.authService.setUser({
@@ -79,6 +96,7 @@ export class Login1Component {
   password?: string;
 
   ngOnInit(): void {
+    this.startShowMessages();
     this.authService.TestApi()
     .subscribe({
       next:(response)=>{
