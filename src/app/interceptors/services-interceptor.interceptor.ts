@@ -30,12 +30,12 @@ export class ServicesInterceptorInterceptor implements HttpInterceptor {
         return event;
     }),
     catchError((error: any) => {                
-        //console.log('error--->>>', error.error.errors.error.join(','));                
+        console.log('error--->>>', error);                
         this.msg.error(error.error.errors.error.join(','));
         return throwError(error);
     }),
     finalize(() =>{
-        console.log('terminado');
+        //console.log('terminado');
     }));;
   }
 
