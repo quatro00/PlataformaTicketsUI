@@ -7,6 +7,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ProyectoComponent } from './proyecto/proyecto.component';
 import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
 import { SucursalComponent } from './sucursal/sucursal.component';
+import { PrioridadComponent } from './prioridad/prioridad.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,13 @@ const routes: Routes = [
     component: SucursalComponent,
     data: {
         title: 'Sucursal',
+    }
+  },
+  {
+    path: 'prioridad',
+    component: PrioridadComponent,
+    data: {
+        title: 'Prioridad',
     }
   },
 ];

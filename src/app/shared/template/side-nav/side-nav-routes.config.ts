@@ -71,6 +71,14 @@ export const AdminRoutes: SideNavInterface[] = [
     ]
   },
   {
+    path: 'administrador/prioridad',
+    title: 'Prioridad',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'appstore-add',
+    submenu:[]
+  },
+  {
     path: 'administrador/proyecto',
     title: 'Proyectos',
     iconType: 'nzIcon',

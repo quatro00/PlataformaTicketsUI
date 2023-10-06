@@ -45,6 +45,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { PrioridadComponent } from './prioridad/prioridad.component';
 const antdModule = [
   NzDropDownModule,
   AngularSvgIconModule.forRoot(),
@@ -91,13 +92,15 @@ const antdModule = [
     PerfilComponent,
     CategoriaComponent,
     SubcategoriaComponent,
-    ProyectoComponent
+    ProyectoComponent,
+    PrioridadComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     NzCardModule,
     HttpClientModule,
+    NzSliderModule,
     ...antdModule
   ],
   providers: [
