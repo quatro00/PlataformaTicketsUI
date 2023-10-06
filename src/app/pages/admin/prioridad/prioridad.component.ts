@@ -43,14 +43,15 @@ export class PrioridadComponent {
     private modalService: NzModalService
     ) {}
     ngOnInit() {
+      
       // Simulate loading time
       this.validateForm = this.fb.group({
         sucursalId: ['',[Validators.required]],
         nombre: ['',[Validators.required]],
         descripcion: ['',[Validators.required]],
         tiempoDeAtencion: ['',[Validators.required]],
-        prioridad: ['36',[Validators.required]],
-        color: ['',[Validators.required]],
+        nivelDePrioridad: ['1',[Validators.required]],
+        color: ['#00FF00',[Validators.required]],
       });
   
       this.loadData();
@@ -98,13 +99,7 @@ export class PrioridadComponent {
     }
   
     showNew(newItem: TemplateRef<{}>) {
-      //this.validateForm.reset();
-
-      /*
-      this.validateForm.setValue({
-        prioridad:33
-      })
-      */
+      this.validateForm.reset();
       const modal = this.modalService.create({
           nzTitle: 'Información de la prioridad',
           nzContent: newItem,
@@ -122,12 +117,14 @@ export class PrioridadComponent {
     }
   
     showEdit(newItem: TemplateRef<{}>, model:any) {
-      console.log(model);
+      
       this.validateForm.setValue({
-        descripcion:model.descripcion,
-        clave:model.clave,
-        telefono:model.telefono,
-        sucursalId:model.sucursalId,
+          sucursalId : model.sucursalId,
+          nombre : model.nombre,
+          descripcion : model.descripcion,
+          tiempoDeAtencion: model.tiempoDeAtencion,
+          nivelDePrioridad: model.nivelDePrioridad,
+          color: model.color
       })
   
       const modal = this.modalService.create({
@@ -163,6 +160,7 @@ export class PrioridadComponent {
           activo : true,
         };
         
+        console.log(request, id);
         this.prioridadService.update(id, request)
         .subscribe({
           next:(response)=>{
@@ -185,9 +183,9 @@ export class PrioridadComponent {
     submitForm(): void {
       console.log(this.validateForm.valid);
       if (this.validateForm.valid) {
-        console.log(this.validateForm);
+        
   
-        /*
+        
         var request:PrioridadModel = {
           id : '',
           sucursalId : this.validateForm.value.sucursalId,
@@ -199,7 +197,8 @@ export class PrioridadComponent {
           activo : true,
         };
         
-        
+        console.log(request);
+
         this.prioridadService.create(request)
         .subscribe({
           next:(response)=>{
@@ -208,7 +207,6 @@ export class PrioridadComponent {
             this.loadData();
           }
         })
-        */
       } else {
         Object.values(this.validateForm.controls).forEach((control) => {
           if (control.invalid) {

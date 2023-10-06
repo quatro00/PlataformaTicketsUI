@@ -30,8 +30,20 @@ export class ServicesInterceptorInterceptor implements HttpInterceptor {
         return event;
     }),
     catchError((error: any) => {                
-        console.log('error--->>>', error);                
-        this.msg.error(error.error.errors.error.join(','));
+        console.log('error--->>>', error); 
+        var tipoError:number = error.estatus;
+        var errorMsg:string = ''; 
+        switch (tipoError) {
+          case 400:
+            
+            break;
+        
+          default:
+              errorMsg = 'Ocurrio un error inesperado';
+            break;
+        }
+                
+        this.msg.error(errorMsg);
         return throwError(error);
     }),
     finalize(() =>{
