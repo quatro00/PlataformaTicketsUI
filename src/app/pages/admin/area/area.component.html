@@ -1,0 +1,127 @@
+<div nz-row nzGutter="25">
+    <!-- skeleton -->
+    <ng-template #loadingSkeleton>
+        <nz-skeleton class="bg-white dark:bg-white/10 rounded-6 p-[30px] pt-[15px]" [nzShape]="circle" [nzActive]="true"
+            [nzParagraph]="{ rows: 5 }"></nz-skeleton>
+    </ng-template>
+    <!-- skeleton -->
+    <div nz-col nzXs="24" nzMd="12">
+        <ng-template #newItem>
+            <form nz-form nzLayout="vertical" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Ingresa una clave.">
+                        <nz-form-label
+                            class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Clave:</nz-form-label>
+                        <input formControlName="clave" style="color:white"
+                            class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10"
+                            type="text" nz-input placeholder="Clave del area">
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Ingresa un nombre.">
+                        <nz-form-label
+                            class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Nombre:</nz-form-label>
+                        <input formControlName="nombre" style="color:white"
+                            class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10"
+                            type="text" nz-input placeholder="Nombre del area">
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Ingresa una descripcion.">
+                        <nz-form-label
+                            class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Descripcion:</nz-form-label>
+                        <input formControlName="descripcion" style="color:white"
+                            class="h-[50px] border-normal dark:border-white/10 px-[20px] placeholder-shown:text-light-extra dark:placeholder-shown:text-white/60 rounded-[5px] dark:bg-white/10"
+                            type="text" nz-input placeholder="Nombre del area">
+                    </nz-form-control>
+                </nz-form-item>
+
+            </form>
+        </ng-template>
+        <!-- :End New project added -->
+    </div>
+    <ng-container *ngIf="showContent; else loadingSkeleton">
+
+
+        
+
+
+        <ng-template #recursiveListTmpl let-list="list">
+            <div *ngFor="let item of list">
+                <div class="p-[25px] pt-0">
+                    <nz-collapse class="bg-transparent" [nzBordered]="false">
+                        <ng-template #extraTpl>
+                            <button
+                                class="flex items-center px-[14px] text-sm text-white rounded-md font-semibold bg-primary border-primary h-10 gap-[6px] h-[32px] rounded-[40px]"
+                                nz-button (click)="showNewArea(newItem, item.id)">
+                                <i class="text-[12px]" nz-icon nzType="plus"></i>
+                                <span class="m-0">Agregar area</span>
+                            </button>
+                        </ng-template>
+                        <nz-collapse-panel class="{{collapsePanelClass}}" [nzHeader]="item.nombre" [nzExtra]="extraTpl">
+                            <ng-container
+                                *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.areasHijas }"></ng-container>
+                        </nz-collapse-panel>
+                    </nz-collapse>
+                </div>
+            </div>
+        </ng-template>
+
+        <div nz-col nzXs="24" class="mb-[25px]">
+            <div nz-col nzXs="24" class="mb-[25px]">
+                <!-- New Contact -->
+                <div class="flex items-center justify-center md:justify-end">
+                    <button
+                        class="flex items-center px-[14px] text-sm text-white rounded-md font-semibold bg-primary border-primary h-10 gap-[6px]"
+                        nz-button (click)="showNew(newItem)">
+                        <i class="text-[12px]" nz-icon nzType="plus"></i>
+                        <span class="m-0">Agregar area base</span>
+                    </button>
+                </div>
+                <!-- end: New Contact -->
+            </div>
+        </div>
+        <div nz-col nzXs="12" nzLg="12" class="mb-[25px]" *ngFor="let item of areasBase">
+            <div
+                class="bg-white dark:bg-white/10 mb-[25px] p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
+                <div class="py-[16px] px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px]">
+                    <div nz-row nzGutter="25">
+                        <div nz-col nzXs="12" nzLg="12" class="mb-[25px]">
+                            <h4 class="mb-0 text-lg font-medium text-dark dark:text-white/[.87] capitalize">
+                                {{item.clave}}-{{item.nombre}}
+                            </h4>
+                        </div>
+                        <div nz-col nzXs="12" nzLg="12" class="mb-[25px]">
+                            <div class="flex items-center justify-center md:justify-end">
+                                <button
+                                    class="flex items-center px-[14px] text-sm text-white rounded-md font-semibold bg-primary border-primary h-10 gap-[6px]"
+                                    nz-button (click)="showNewArea(newItem, item.id)">
+                                    <i class="text-[12px]" nz-icon nzType="plus"></i>
+                                    <span class="m-0">Agregar area</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="p-[25px] pt-0">
+                    <div>
+                        <ng-container
+                            *ngTemplateOutlet="recursiveListTmpl; context:{ list: areasHijas }"></ng-container>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </ng-container>
+
+</div>

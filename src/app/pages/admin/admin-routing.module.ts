@@ -8,6 +8,7 @@ import { ProyectoComponent } from './proyecto/proyecto.component';
 import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
 import { SucursalComponent } from './sucursal/sucursal.component';
 import { PrioridadComponent } from './prioridad/prioridad.component';
+import { AreaComponent } from './area/area.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,13 @@ const routes: Routes = [
   {
     path: 'departamento',
     component: DepartamentoComponent,
+    data: {
+        title: 'Departamento',
+    }
+  },
+  {
+    path: 'departamento/area/:departamentoId',
+    component: AreaComponent,
     data: {
         title: 'Departamento',
     }

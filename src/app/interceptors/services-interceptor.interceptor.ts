@@ -8,12 +8,14 @@ import {
 import { Observable, catchError, delay, finalize, map, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class ServicesInterceptorInterceptor implements HttpInterceptor {
 
-  constructor(private cookieService:CookieService
-    , private msg:NzMessageService
+  constructor(private cookieService:CookieService, 
+    private authService:AuthService,
+    private msg:NzMessageService
     ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): 
@@ -31,11 +33,12 @@ export class ServicesInterceptorInterceptor implements HttpInterceptor {
     }),
     catchError((error: any) => {                
         console.log('error--->>>', error); 
-        var tipoError:number = error.estatus;
+        var tipoError:number = error.status;
         var errorMsg:string = ''; 
         switch (tipoError) {
-          case 400:
-            
+          case 401:
+            errorMsg = 'Sesion terminada favor de iniciar sesion.';
+            //this.authService.logout();
             break;
         
           default:

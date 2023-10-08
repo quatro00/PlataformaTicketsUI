@@ -46,6 +46,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { PrioridadComponent } from './prioridad/prioridad.component';
+import { AreaComponent } from './area/area.component';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 const antdModule = [
   NzDropDownModule,
   AngularSvgIconModule.forRoot(),
@@ -80,7 +82,8 @@ const antdModule = [
   NzToolTipModule,
   //NzStepsModule,
   //GoogleMapsModule
-  NzMessageModule
+  NzMessageModule,
+  NzCollapseModule
 
 ]
 
@@ -93,7 +96,8 @@ const antdModule = [
     CategoriaComponent,
     SubcategoriaComponent,
     ProyectoComponent,
-    PrioridadComponent
+    PrioridadComponent,
+    AreaComponent
   ],
   imports: [
     CommonModule,

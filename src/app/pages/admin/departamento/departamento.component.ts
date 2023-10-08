@@ -5,6 +5,7 @@ import { DepartamentoService } from 'src/app/services/departamento.service';
 import { SucursalService } from 'src/app/services/sucursal.service';
 import { SucursalModel } from 'src/app/models/sucursal-model';
 import { DepartamentoModel } from 'src/app/models/departamento/departamento-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-departamento',
@@ -30,7 +31,8 @@ export class DepartamentoComponent {
     private fb: FormBuilder, 
     private departamentoService: DepartamentoService,
     private sucursalService: SucursalService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private router: Router, 
     ) {}
 
   ngOnInit() {
@@ -102,6 +104,17 @@ export class DepartamentoComponent {
         ],
         nzWidth: 620
     })
+  }
+
+  navigateToAreas(departamentoId:any) {
+    console.log(departamentoId);
+    this.router.navigateByUrl(`administrador/departamento/area/${departamentoId}`); 
+/*
+    this.router.navigate(
+      ['/administrador/departamento/area'],
+      { queryParams: { 'departamentoId': departamentoId } }
+    );
+*/
   }
 
   showEdit(newItem: TemplateRef<{}>, model:any) {
