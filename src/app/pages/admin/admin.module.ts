@@ -113,6 +113,6 @@ const antdModule = [
   ],
   providers: [
     NzMessageService
-]
+  ]
 })
 export class AdminModule { }
