@@ -131,9 +131,50 @@ export const AgenteRoutes: SideNavInterface[] = [
       title: 'Dashboard',
       iconType: 'nzIcon',
       iconTheme: 'outline',
-      icon: 'appstore-add',
+      icon: 'home',
       submenu:[]
-}]
+    },
+    {
+      path: 'cliente/perfil',
+      title: 'Perfil',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'user',
+      submenu:[]
+    },
+    {
+      path: 'cliente/crearticket',
+      title: 'Crear ticket',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'file-add',
+      submenu:[]
+    },
+    {
+      path: 'cliente/tickets-activos',
+      title: 'Tickets activos',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'tags',
+      submenu:[]
+    },
+    {
+      path: 'cliente/tickets-cerrados',
+      title: 'Tickets cerrados',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'stop',
+      submenu:[]
+    },
+    {
+      path: 'cliente/tickets-pendientes',
+      title: 'Tickets pendientes',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'file-exclamation',
+      submenu:[]
+    }
+]
 
   export const SupervisorRoutes: SideNavInterface[] = [
 
