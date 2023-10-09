@@ -5,6 +5,8 @@ import { SucursalService } from 'src/app/services/sucursal.service';
 import { SucursalModel } from 'src/app/models/sucursal-model';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { CategoriaModel } from 'src/app/models/categoria/categoria-model';
+import { EquipoService } from 'src/app/services/equipo.service';
+import { AsignarEquipo } from 'src/app/models/categoria/asignar-equipo.model';
 
 @Component({
   selector: 'app-categoria',
@@ -21,14 +23,17 @@ export class CategoriaComponent {
   contactSearchValue = '';
   data: any[] = [];
   filteredData: any[] = [];
+  equipos: any[] = [];
 
   sucursales:SucursalModel[] = [];
   validateForm!: UntypedFormGroup;
+  validateFormEquipo!: UntypedFormGroup;
 
   constructor( 
     private fb: FormBuilder,   
     private categoriaService: CategoriaService,
     private sucursalService: SucursalService,
+    private equipoService:EquipoService,
     private modalService: NzModalService
     ) {}
     ngOnInit() {
@@ -40,6 +45,10 @@ export class CategoriaComponent {
         descripcion: ['',[Validators.required]],
       });
   
+      this.validateFormEquipo = this.fb.group({
+        equipoId: ['',[Validators.required]]
+      });
+
       this.loadData();
     }
   
@@ -192,6 +201,80 @@ export class CategoriaComponent {
           }
         });
       }
+    }
+
+    asignarEquipoForm(categoriaId: string): void {
+      if (this.validateFormEquipo.valid) {
+        var request: AsignarEquipo = {
+          categoriaId:categoriaId,
+          equipoId:this.validateFormEquipo.value.equipoId
+        };
+  
+        this.categoriaService.asignarEquipo(request)
+        .subscribe({
+          next: (response) => {
+            this.modalService.closeAll();
+            this.validateFormEquipo.reset();
+            this.loadData();
+          }
+        })
+      } else {
+        Object.values(this.validateForm.controls).forEach((control) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        });
+      }
+    }
+
+    showAddEquipo(newItem: TemplateRef<{}>, model: any) {
+      this.validateFormEquipo.reset();
+      //console.log(model.sucursalId);
+      //buscamos los agente
+      this.equipoService.getEquiposSucursal(model.sucursalId)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.equipos = response;
+          const modal = this.modalService.create({
+            nzTitle: 'Agregar equipo',
+            nzContent: newItem,
+            nzFooter: [
+              {
+                label: 'Agregar',
+                type: 'primary',
+                onClick: () => {
+                  this.asignarEquipoForm(model.id);
+                }
+              },
+            ],
+            nzWidth: 620
+          })
+        }
+      })
+      
+    }
+
+    borrarEquipoConfirm(equipoId:any,categoriaId:any):void{
+      this.modalService.confirm({
+        nzTitle: '<h2 class="text-dark dark:text-white/[.87]">Deseas eliminar el equipo seleccionado?</h2>',
+        nzOnOk: () =>{
+          var request: AsignarEquipo = {
+            categoriaId:categoriaId,
+            equipoId:equipoId
+          };
+  
+          this.categoriaService.desasignarEquipo(request)
+          .subscribe({
+            next: (response) => {
+              this.modalService.closeAll();
+              this.loadData();
+            }
+          })
+  
+        }
+      });
     }
   }
   

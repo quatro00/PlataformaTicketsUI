@@ -19,6 +19,7 @@ export class EquiposComponent {
   isLoading = true;
   showContent = false;
 
+
   //variables para la tabla
   value = '';
   statusFilter = '';
@@ -298,7 +299,7 @@ export class EquiposComponent {
   
   borrarAgenteConfirm(equipoId:any,usuarioId:any):void{
     this.modalService.confirm({
-      nzTitle: '<h2 class="text-dark dark:text-white/[.87]">Deseas eliinar el usuario seleccionado?</h2>',
+      nzTitle: '<h2 class="text-dark dark:text-white/[.87]">Deseas eliminar el usuario seleccionado?</h2>',
       nzOnOk: () =>{
         var request: AsignarUsuario = {
           EquipoId:equipoId,
