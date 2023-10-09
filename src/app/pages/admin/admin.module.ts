@@ -48,6 +48,8 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { PrioridadComponent } from './prioridad/prioridad.component';
 import { AreaComponent } from './area/area.component';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { EquiposComponent } from './equipos/equipos.component';
 const antdModule = [
   NzDropDownModule,
   AngularSvgIconModule.forRoot(),
@@ -97,7 +99,9 @@ const antdModule = [
     SubcategoriaComponent,
     ProyectoComponent,
     PrioridadComponent,
-    AreaComponent
+    AreaComponent,
+    UsuariosComponent,
+    EquiposComponent
   ],
   imports: [
     CommonModule,

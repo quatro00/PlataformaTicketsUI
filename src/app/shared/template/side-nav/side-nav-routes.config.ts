@@ -22,6 +22,31 @@ export const AdminRoutes: SideNavInterface[] = [
   },
   {
     path: '',
+    title: 'Usuarios',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'appstore-add',
+    submenu:[
+      {
+        path: 'administrador/usuarios',
+        title: 'Usuarios',
+        iconType: '',
+        icon: '',
+        iconTheme: '',
+        submenu: [],
+      },
+      {
+        path: 'administrador/equipos',
+        title: 'Equipos de atención',
+        iconType: '',
+        icon: '',
+        iconTheme: '',
+        submenu: [],
+      },
+    ]
+  },
+  {
+    path: '',
     title: 'Sucursales',
     iconType: 'nzIcon',
     iconTheme: 'outline',

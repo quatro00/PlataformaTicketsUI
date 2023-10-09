@@ -9,6 +9,8 @@ import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
 import { SucursalComponent } from './sucursal/sucursal.component';
 import { PrioridadComponent } from './prioridad/prioridad.component';
 import { AreaComponent } from './area/area.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { EquiposComponent } from './equipos/equipos.component';
 
 const routes: Routes = [
   {
@@ -72,6 +74,20 @@ const routes: Routes = [
     component: PrioridadComponent,
     data: {
         title: 'Prioridad',
+    }
+  },
+  {
+    path: 'usuarios',
+    component: UsuariosComponent,
+    data: {
+        title: 'Usuarios',
+    }
+  },
+  {
+    path: 'equipos',
+    component: EquiposComponent,
+    data: {
+        title: 'Equipo de atención',
     }
   },
 ];
