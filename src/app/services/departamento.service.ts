@@ -18,6 +18,10 @@ export class DepartamentoService {
     return this.http.get<DepartamentoModel[]>(`${environment.apiBaseUrl}/api/${this.service}`);
   }
 
+  getDepartamentos():Observable<DepartamentoModel[]>{
+    return this.http.get<DepartamentoModel[]>(`${environment.apiBaseUrl}/api/${this.service}/GetDepartamentos`);
+  }
+
   create(request:DepartamentoModel):Observable<DepartamentoModel>{
     return this.http.post<DepartamentoModel>(`${environment.apiBaseUrl}/api/${this.service}`,request
     ,{headers:{'Authorization':this.cookieService.get('Authorization')}});

@@ -13,41 +13,41 @@
           <h4 class="mb-0 text-lg font-medium text-dark dark:text-white/[.87]">Editar perfil</h4>
         </div>
         <div class="p-[25px]">
-          <form nz-form>
+          <form nz-form [formGroup]="validateForm">
             <nz-form-item nzGutter="25" class="mb-0">
-              <nz-form-control nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
+              <nz-form-control nzErrorTip="Ingresa una matrícula." nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
                 <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Matricula:</nz-form-label>
-                <input class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="name" type="text" placeholder="First Name">
+                <input formControlName="matricula" class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="name" type="number" placeholder="Matrícula">
               </nz-form-control>
-              <nz-form-control nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
+              <nz-form-control nzErrorTip="Ingresa una sucursal." nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
                 <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Sucursal:</nz-form-label>
-                <input class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="text" type="email" placeholder="Last Name">
+                <input formControlName="sucursal" class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="text" type="text" placeholder="Sucursal">
               </nz-form-control>
             </nz-form-item >
             <nz-form-item nzGutter="25" class="mb-0">
-              <nz-form-control nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
+              <nz-form-control nzErrorTip="Ingresa un nombre." nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
                 <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Nombre:</nz-form-label>
-                <input class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="name" type="text" placeholder="City">
+                <input formControlName="nombre" class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="name" type="text" placeholder="Nombre">
               </nz-form-control>
-              <nz-form-control nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
+              <nz-form-control nzErrorTip="Ingresa un apellido." nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
                 <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Apellidos:</nz-form-label>
-                <input class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="text" type="text" placeholder="Country">
+                <input formControlName="apellidos" class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="text" type="text" placeholder="Apellidos">
               </nz-form-control>
             </nz-form-item>
             <nz-form-item nzGutter="25" class="mb-0">
-              <nz-form-control nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
+              <nz-form-control nzErrorTip="Ingresa un correo electrónico" nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
                 <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Correo electrónico:</nz-form-label>
-                <input class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="name" type="text" placeholder="Company">
+                <input formControlName="correoElectronico" class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="name" type="text" placeholder="Correo electrónico">
               </nz-form-control>
-              <nz-form-control nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
+              <nz-form-control nzErrorTip="Ingresa un teléfono." nzLg="12" nzMd="12" nzXs="24" class="mb-[25px]">
                 <nz-form-label class="text-[15px] font-semibold text-dark dark:text-white/[.87] capitalize mb-[10px]">Teléfono:</nz-form-label>
-                <input class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="text" type="email" placeholder="Email">
+                <input formControlName="telefono" class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="text" type="text" placeholder="Teléfono">
               </nz-form-control>
             </nz-form-item>
             <nz-form-item nzJustify="end">
                 <nz-form-control nzLg="5" nzMd="5" nzXs="24">
                   <div class="flex flex-wrap gap-[15px]">
-                    <button nz-button class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px] duration-300">
+                    <button (click)="submitForm()" nz-button class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px] duration-300">
                       <span>Guarda cambios</span>
                     </button>
                   </div>
@@ -68,16 +68,42 @@
           </div>
           <div class="p-[25px]">
             <form nz-form>
-              <nz-form-item class="mb-[25px]">
-                <nz-form-label class="flex items-center font-medium dark:text-white/60"  nzLg="6" nzMd="7" nzXs="24" nzFor="name">Contraseña actual</nz-form-label>
+              <nz-form-item>
+                <nz-form-label class="flex items-center font-medium dark:text-white/60"  nzLg="6" nzMd="7" nzXs="24" nzFor="pass">Contraseña actual</nz-form-label>
                 <nz-form-control nzLg="16" nzMd="15" nzXs="24">
-                  <input class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="name" type="text" id="name" value="Duran Clayton" placeholder="Enter Name">
+                  <nz-input-group class="flex items-center shadow-none py-[10px] px-[20px] h-[50px] border-1 border-normal dark:border-white/10 w-full text-[14px] font-normal leading-[1.5] dark:bg-white/10 rounded-4" [nzSuffix]="suffixTemplate">
+                    <input class="w-full text-[15px] placeholder:text-[#A0A0A0] dark:bg-transparent bg-transparent dark:text-white/60 outline-none autofill:shadow-[inset_0_0_0px_1000px_rgb(255,255,0,0)]  text-theme-gray"
+                      [type]="passwordVisible ? 'text' : 'password'"
+                      nz-input
+                    />
+                    <ng-template #suffixTemplate>
+                      <span
+                      class="cursor-pointer text-light-extra dark:text-white/60 w-[15px] h-[15px]"
+                        nz-icon
+                        [nzType]="passwordVisible ? 'eye' : 'eye-invisible'"
+                        (click)="passwordVisible = !passwordVisible"
+                      ></span>
+                    </ng-template>
+                  </nz-input-group>
                 </nz-form-control>
               </nz-form-item >
               <nz-form-item>
-                <nz-form-label class="flex items-center font-medium dark:text-white/60"  nzLg="6" nzMd="7" nzXs="24" nzFor="email">Nueva contraseña</nz-form-label>
+                <nz-form-label class="flex items-center font-medium dark:text-white/60"  nzLg="6" nzMd="7" nzXs="24" nzFor="pass">Nueva contraseña</nz-form-label>
                 <nz-form-control nzLg="16" nzMd="15" nzXs="24">
-                  <input class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60" nz-input name="email" type="email" id="email" value="username@email.com" placeholder="Enter Email">
+                  <nz-input-group class="flex items-center shadow-none py-[10px] px-[20px] h-[50px] border-1 border-normal dark:border-white/10 w-full text-[14px] font-normal leading-[1.5] dark:bg-white/10 rounded-4" [nzSuffix]="suffixTemplate">
+                    <input class="w-full text-[15px] placeholder:text-[#A0A0A0] dark:bg-transparent bg-transparent dark:text-white/60 outline-none autofill:shadow-[inset_0_0_0px_1000px_rgb(255,255,0,0)]  text-theme-gray"
+                      [type]="passwordVisible ? 'text' : 'password'"
+                      nz-input
+                    />
+                    <ng-template #suffixTemplate>
+                      <span
+                      class="cursor-pointer text-light-extra dark:text-white/60 w-[15px] h-[15px]"
+                        nz-icon
+                        [nzType]="passwordVisible ? 'eye' : 'eye-invisible'"
+                        (click)="passwordVisible = !passwordVisible"
+                      ></span>
+                    </ng-template>
+                  </nz-input-group>
                 </nz-form-control>
               </nz-form-item >
               <nz-form-item>
@@ -87,7 +113,6 @@
                     <input class="w-full text-[15px] placeholder:text-[#A0A0A0] dark:bg-transparent bg-transparent dark:text-white/60 outline-none autofill:shadow-[inset_0_0_0px_1000px_rgb(255,255,0,0)]  text-theme-gray"
                       [type]="passwordVisible ? 'text' : 'password'"
                       nz-input
-                      placeholder="Input password"
                     />
                     <ng-template #suffixTemplate>
                       <span

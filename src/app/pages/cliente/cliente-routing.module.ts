@@ -6,13 +6,14 @@ import { CrearTicketComponent } from './crear-ticket/crear-ticket.component';
 import { TicketsActivosComponent } from './tickets-activos/tickets-activos.component';
 import { TicketsCerradosComponent } from './tickets-cerrados/tickets-cerrados.component';
 import { TicketsPendientesComponent } from './tickets-pendientes/tickets-pendientes.component';
+import { TicketDetalleComponent } from './ticket-detalle/ticket-detalle.component';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
     data: {
-        title: 'Cliente',
+        title: 'Dasbboard',
     }
   },
   {
@@ -50,7 +51,13 @@ const routes: Routes = [
         title: 'tickets pendientes',
     }
   },
-
+  {
+    path: 'ticket-detalle',
+    component: TicketDetalleComponent,
+    data: {
+        title: '  ',
+    }
+  },
 ];
 
 @NgModule({

@@ -1,10 +1,8 @@
 import { Component, TemplateRef } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { SucursalService } from 'src/app/services/sucursal.service';
-import { SucursalModel } from 'src/app/models/sucursal-model';
 import { PrioridadService } from 'src/app/services/prioridad.service';
-import { PrioridadModel } from 'src/app/models/prioridad/prioridad-model';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { PerfilModel } from 'src/app/models/usuario/perfil';
 
 @Component({
   selector: 'app-cliente-perfil',
@@ -21,29 +19,73 @@ export class ClientePerfilComponent {
   constructor( 
     private fb: FormBuilder, 
     private prioridadService: PrioridadService,
-    private sucursalService: SucursalService,
-    private modalService: NzModalService
+    private usuarioService: UsuarioService,
     ) {}
     ngOnInit() {
       
       // Simulate loading time
       this.validateForm = this.fb.group({
-        sucursalId: ['',[Validators.required]],
+        matricula: ['',[Validators.required]],
+        sucursal: ['',[Validators.required]],
         nombre: ['',[Validators.required]],
-        descripcion: ['',[Validators.required]],
-        tiempoDeAtencion: ['',[Validators.required]],
-        nivelDePrioridad: ['1',[Validators.required]],
-        color: ['#00FF00',[Validators.required]],
+        apellidos: ['',[Validators.required]],
+        correoElectronico: ['',[Validators.required]],
+        telefono: ['',[Validators.required]],
       });
   
       this.loadData();
     }
   
     loadData() {
-  
-      this.isLoading = false;
-      this.showContent = true;
-    
+      this.usuarioService.getPerfil()
+      .subscribe({
+        next:(response)=>{
+          console.log(response);
+          this.validateForm.setValue({
+            matricula : response.matricula,
+            sucursal : response.sucursalNombre,
+            apellidos : response.apellidos,
+            nombre: response.nombre,
+            correoElectronico: response.correoElectronico,
+            telefono: response.telefono
+        })
+          this.isLoading = false;
+          this.showContent = true;
+        }
+      })
+    }
+
+    submitForm(){
+      if (this.validateForm.valid) {
+       
+        var request:PerfilModel = {
+          matricula : this.validateForm.value.matricula,
+          sucursalNombre : this.validateForm.value.sucursal,
+          apellidos : this.validateForm.value.apellidos,
+          nombre: this.validateForm.value.nombre,
+          correoElectronico: this.validateForm.value.correoElectronico,
+          telefono: this.validateForm.value.telefono
+        };
+        
+console.log(request);
+        /*
+        this.prioridadService.update(id, request)
+        .subscribe({
+          next:(response)=>{
+            this.modalService.closeAll();
+            this.validateForm.reset();
+            this.loadData();
+          }
+        })
+        */
+      } else {
+        Object.values(this.validateForm.controls).forEach((control) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        });
+      }
     }
   
     

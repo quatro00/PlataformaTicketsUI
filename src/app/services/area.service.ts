@@ -23,4 +23,9 @@ export class AreaService {
 
     return this.http.get<AreaBaseModel[]>(`${environment.apiBaseUrl}/api/${this.service}/GetAreasBaseByDepartamento`,{params});
   }
+  GetAreas(departamentoId:string):Observable<any[]>{
+    //let params = new HttpParams().append('departamentoId', `${departamentoId}`);
+
+    return this.http.get<any[]>(`${environment.apiBaseUrl}/api/${this.service}/GetAreas/${departamentoId}`);
+  }
 }

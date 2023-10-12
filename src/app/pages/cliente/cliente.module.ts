@@ -36,9 +36,18 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { HttpClientModule } from '@angular/common/http';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
-
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { PerfectScrollbarModule } from 'ngx-om-perfect-scrollbar';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { TicketDetalleComponent } from './ticket-detalle/ticket-detalle.component';
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 const antdModule = [
+  NzUploadModule,
+  NzCascaderModule,
+  NzPaginationModule,
+  PerfectScrollbarModule,
   NzDropDownModule,
   AngularSvgIconModule.forRoot(),
   NgChartsModule,
@@ -53,6 +62,7 @@ const antdModule = [
   ReactiveFormsModule,
   NzInputModule,
   NzFormModule,
+  EditorModule,
   //NzInputNumberModule,
   NzDatePickerModule,
   NzTimePickerModule,
@@ -84,7 +94,8 @@ const antdModule = [
     CrearTicketComponent,
     TicketsActivosComponent,
     TicketsCerradosComponent,
-    TicketsPendientesComponent
+    TicketsPendientesComponent,
+    TicketDetalleComponent
   ],
   imports: [
     CommonModule,

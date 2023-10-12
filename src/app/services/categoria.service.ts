@@ -18,6 +18,10 @@ export class CategoriaService {
     return this.http.get<CategoriaListModel[]>(`${environment.apiBaseUrl}/api/${this.service}`);
   }
 
+  getCategorias():Observable<CategoriaListModel[]>{
+    return this.http.get<CategoriaListModel[]>(`${environment.apiBaseUrl}/api/${this.service}/GetCategorias`);
+  }
+
   create(request:CategoriaModel):Observable<CategoriaModel>{
     return this.http.post<CategoriaModel>(`${environment.apiBaseUrl}/api/${this.service}`,request);
   }

@@ -24,4 +24,8 @@ export class SubcategoriaService {
   update(id:string, request:SubCategoriaModel):Observable<SubCategoriaModel>{
     return this.http.put<SubCategoriaModel>(`${environment.apiBaseUrl}/api/${this.service}/${id}`,request);
   }
+
+  getSubCategorias(id:string):Observable<SubCategoriaListModel[]>{
+    return this.http.get<SubCategoriaListModel[]>(`${environment.apiBaseUrl}/api/${this.service}/GetSubCategorias/${id}`);
+  }
 }

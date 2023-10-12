@@ -1,0 +1,123 @@
+<div nz-row [nzGutter]="25">
+   
+  
+    <div nz-col nzXs="24" class="sm:mb-[25px] mb-[15px] max-sm:justify-center max-sm:flex">
+      <ng-container>
+        <button [routerLink]="['/apps/supports/support']" nz-button
+        class="inline-flex items-center bg-transparent border-none shadow-none text-[14px] capitalize font-medium text-theme-gray dark:text-white/60 gap-[4px] p-0 hover:text-primary group transition-all duration-200">
+        <svg-icon class="w-[22px] h-[22px] text-dark dark:text-white/[.87] text-[14px] group-hover:text-primary"
+          src="assets/images/svg/unicons-line/arrow-left.svg"></svg-icon>
+        <span class="m-0">go back</span>
+      </button>
+      </ng-container>
+    </div>
+    <div nz-col nzXs="24" nzLg="16" class="mb-[25px]">
+      <ng-container>
+        <div class="bg-white dark:bg-white/10 rounded-10 pt-[25px] px-[25px] pb-[30px] shadow-[0_5px_20px_rgba(173,181,217,0.05)] mb-[25px]">
+            <h4 class="text-[20px] text-dark dark:text-white/[.87] font-medium mb-[25px]">Need to help for adding new contact</h4>
+            <div nz-row nzGutter="25">
+              <div nz-col nzXs="24" nzMd="8" *ngFor="let item of jsonData" class="mb-[25px]">
+                <div>
+                  <h4 class="text-[14px] text-light dark:text-white/60 mb-[12px] font-normal">{{item.authorArea.slug}}:</h4>
+                  <div class="flex items-center mb-[30px] gap-[15px]">
+                    <ng-container *ngIf="item.authorArea.avatar.length === 0; else showOptions">
+                    </ng-container>
+                    <ng-template #showOptions>
+                      <img class="w-[30px] h-[30px] rounded-full" [src]="item.authorArea.avatar" alt="author image">
+                    </ng-template>
+                    <span
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">{{ item.authorArea.name }}</span>
+                  </div>
+                  <ng-container *ngIf="item.priority.length === 0; else showPriority">
+                  </ng-container>
+                  <ng-template #showPriority>
+                    <h4 class="text-theme-gray dark:text-white/60 mb-[12px] font-medium">{{item.priority}}</h4>
+                  </ng-template>
+                </div>
+                <ng-container *ngIf="item.priorityOptions.length === 0; else showSelect">
+                </ng-container>
+                <ng-template #showSelect>
+                  <nz-select
+                    class="min-w-[128px] capitalize [&>nz-select-top-control]:border-regular dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[40px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[6px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-light dark:[&>.ant-select-arrow]:text-white/60"
+                    nzPlaceHolder="{{item.label}}" nzAllowClear>
+                    <nz-option *ngFor="let option of item.priorityOptions" [nzValue]="option.value" [nzLabel]="option.label">
+                    </nz-option>
+                  </nz-select>
+                </ng-template>
+              </div>
+            </div>
+            <div class="">
+              <h4 class="text-[20px] font-semibold leading-1 text-theme-gray dark:text-white/60 mb-[12px]">Overview :</h4>
+              <p class="text-theme-gray dark:text-white/60 text-[16px] font-normal">There are have a many variations of passages of Lorem Ipsum available, but the randomised words which don't look even slightly believable. If you are going to sdsss embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend</p>
+            </div>
+        </div>
+        <div class="bg-white dark:bg-white/10 shadow-[0_5px_20px_rgba(173,181,217,.05)] pt-[25px] px-[25px] pb-[30px] rounded-10">
+            <h4 class="font-medium text-dark dark:text-white/[.87] mb-[22px]">Conversation</h4>
+            <div class="max-h-[220px] overflow-x-hidden overflow-y-auto scrollbar" #scrollContainer>
+              <!-- ticket user conversation -->
+              <ul class="pe-[15px]">
+                <li class="flex items-center justify-between flex-wrap mb-[30px]" *ngFor="let user of ticketUsers">
+                  <div class="flex items-start w-full gap-[10px]">
+                    <div class="rounded-full relative inline-flex items-center justify-center">
+                      <img src="{{ user.avatar }}" class="bg-gray dark:bg-white/10 w-[30px] h-[30px] rounded-full" alt="image">
+                    </div>
+                    <div class="flex items-center justify-between flex-wrap w-full">
+                      <div>
+                        <h6 class="text-[14px] font-medium leading-[1.4285714286] text-dark dark:text-white/[.87]">{{ user.name }}</h6>
+                        <div class="text-limit">
+                          <p class="text-[16px] font-normal leading-[1.6875] text-theme-gray dark:text-white/60">{{ user.messagePreview }}</p>
+                        </div>
+                      </div>
+                      <div class="last-chat-time {{ user.isUnread ? 'unread' : '' }}">
+                        <small class="text-light dark:text-white/60">{{ user.timestamp }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="flex items-center flex-wrap gap-[10px] max-xs:flex-col">
+              <form action="/" class="flex items-center bg-normalBG dark:bg-white/10 h-[70px] rounded-[35px] px-[25px] transition-all duration-300 flex-1">
+                <span class="text-[20px] text-light-extra dark:text-white/60" nz-icon [nzType]="'smile'" [nzTheme]="'outline'"></span>
+                <input #newMessageInput class="w-full h-full bg-transparent border-none shadow-none outline-none px-[20px] text-dark dark:text-white/[.87]" type="text" placeholder="Type your message..." aria-label="Message" (keyup.enter)="sendMessage(newMessageInput.value)">
+              </form>
+              <button nz-button class="border-none bg-primary hover:bg-primary-hbr w-[50px] h-[50px] p-[10px] rounded-full flex items-center justify-center" (click)="sendMessage(newMessageInput.value)">
+                <span class="text-[16px] text-white" nz-icon nzType="send" nzTheme="outline"></span>
+              </button>
+            </div>
+          </div>
+      </ng-container>
+    </div>
+    <div nz-col nzXs="24" nzLg="8" class="mb-[25px]">
+      <ng-container >
+        <div class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
+            <div class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto">
+              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">File Attachment</h1>
+            </div>
+            <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
+              <ul class="p-0">
+                <li class="p-0 last:mb-0 mb-[20px] border-none flex items-center justify-between">
+                  <div class="flex items-center gap-[15px]">
+                    <div class="border-none p-0 items-center">
+                      <img class="max-w-[40px] rounded-[5px]" [src]="'assets/images/file/pdf.png'" alt="hexadash Team" />
+                    </div>
+                    <div>
+                      <a class="text-theme-gray text-[15px] dark:text-white/60 hover:text-primary font-medium leading-[19px]" href="#">
+                       nombre
+                      </a>
+                      <div class="text-[15px] text-light dark:text-white/60 leading-1">
+                        size
+                      </div>
+                    </div>
+                  </div>
+                  <button nz-button class="flex items-center justify-center border-none shadow-none bg-transparent">
+                    <span class="text-[18px] text-light dark:text-white/60 dark:hover:text-primary hover:text-primary" nz-icon [nzType]="'download'" nzTheme="outline"></span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+      </ng-container>
+    </div>
+  </div>
+  

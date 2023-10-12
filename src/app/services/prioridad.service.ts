@@ -26,4 +26,8 @@ export class PrioridadService {
   update(id:string, request:PrioridadModel):Observable<PrioridadModel>{
     return this.http.put<PrioridadModel>(`${environment.apiBaseUrl}/api/${this.service}/${id}`,request);
   }
+
+  getPrioridades():Observable<PrioridadListModel[]>{
+    return this.http.get<PrioridadListModel[]>(`${environment.apiBaseUrl}/api/${this.service}/GetPrioridades`);
+  }
 }

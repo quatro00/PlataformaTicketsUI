@@ -1,1 +1,170 @@
-<p>crear-ticket works!</p>
+<div nz-row nzGutter="25">
+  <!-- skeleton -->
+  <ng-template #loadingSkeleton>
+    <nz-skeleton class="bg-white dark:bg-white/10 rounded-6 p-[30px] pt-[15px]" [nzShape]="circle" [nzActive]="true"
+      [nzParagraph]="{ rows: 5 }"></nz-skeleton>
+  </ng-template>
+
+
+  <div nz-col nzXs="24" class="mb-[25px]">
+    <ng-container *ngIf="showContent; else loadingSkeleton">
+      <div
+        class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative h-full">
+        <div
+          class="py-[16px] px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] border-regular dark:border-white/10 border-b">
+          <h4 class="mb-0 text-lg font-medium text-dark dark:text-white/[.87]">Registrar ticket</h4>
+        </div>
+        <div class="p-[25px]">
+         
+          <form nz-form [formGroup]="validateForm">
+
+            <nz-form-item>
+              <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                nzFor="pass">Titulo</nz-form-label>
+              <nz-form-control  nzErrorTip="Ingresa un titulo." nzLg="16" nzMd="15" nzXs="24">
+                <input formControlName="titulo"
+                  class="w-full rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"
+                  nz-input name="tituloTicket" type="text" placeholder="Titulo del ticket">
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                nzFor="pass">Categoría</nz-form-label>
+              <nz-form-control  nzErrorTip="Selecciona una categoria." nzLg="16" nzMd="15" nzXs="24">
+                <nz-select formControlName="categoria" (ngModelChange)="SelectCategoria($event)" class="min-w-[260px] capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[5px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60" name="first">
+                  <nz-option *ngFor="let categoria of categorias" nzValue="{{categoria.id}}" nzLabel="{{categoria.nombre}}"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                nzFor="pass">Subcategoría</nz-form-label>
+              <nz-form-control  nzErrorTip="Selecciona una subcategoria." nzLg="16" nzMd="15" nzXs="24">
+                <nz-select aria-placeholder="Seleccione" formControlName="subcategoria"  class="min-w-[260px] capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[5px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60" name="first">
+                  <nz-option *ngFor="let subcategoria of subCategorias" nzValue="{{subcategoria.id}}" nzLabel="{{subcategoria.nombre}}"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                nzFor="pass">Departamento</nz-form-label>
+              <nz-form-control nzErrorTip="Selecciona un departamento." nzLg="16" nzMd="15" nzXs="24">
+                <nz-select (ngModelChange)="SelectDepartamento($event)" aria-placeholder="Seleccione" formControlName="departamento"  class="min-w-[260px] capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[5px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60" name="first">
+                  <nz-option *ngFor="let departamento of departamentos" nzValue="{{departamento.id}}" nzLabel="{{departamento.clave}}-{{departamento.descripcion}}"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            
+
+            <nz-form-item>
+              <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                nzFor="pass">Area</nz-form-label>
+              <nz-form-control nzErrorTip="Selecciona un area." nzLg="16" nzMd="15" nzXs="24">
+                <div *ngIf="isDarkMode(); then thenCascade else elseCascade"></div>
+
+                <ng-template #thenCascade>
+                  <nz-cascader style="color:white" [nzOptions]="nzOptions" formControlName="area" (ngModelChange)="onChanges($event)"></nz-cascader>
+                </ng-template>
+                <ng-template #elseCascade>
+                  <nz-cascader [nzOptions]="nzOptions" formControlName="area" (ngModelChange)="onChanges($event)"></nz-cascader>
+                </ng-template>
+
+                
+
+                
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                nzFor="pass">Prioridad</nz-form-label>
+              <nz-form-control nzErrorTip="Selecciona una prioridad." nzLg="16" nzMd="15" nzXs="24">
+                <nz-select formControlName="prioridad" class="min-w-[260px] capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[5px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60" name="first">
+                  <nz-option *ngFor="let prioridad of prioridades" nzValue="{{prioridad.id}}" nzLabel="{{prioridad.nombre}}"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                nzFor="pass">Archivos</nz-form-label>
+              <nz-form-control nzErrorTip="Selecciona una prioridad." nzLg="16" nzMd="15" nzXs="24">
+                <nz-upload
+                
+                class="block [&>div>div]:min-h-[110px] dark:[&>div]:bg-white/10 [&>div]:bg-[#fafafa] dark:[&>div]:border-white/10 dark:hover:[&>div]:border-primary"
+                  nzType="drag"
+                  [nzMultiple]="true"
+                  nzAction="https://localhost:7033/api/Ticket"
+                  (nzChange)="handleChange($event)"
+                >
+                  <p class="ant-upload-text">Arrastra los archivos para adjuntarlos.</p>
+                </nz-upload>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label   class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                nzFor="pass">Descripción del problema</nz-form-label>
+            </nz-form-item>
+
+            <nz-form-item>
+
+              <nz-form-control nzErrorTip="Ingresa una descripción." nzLg="23" nzMd="22" nzXs="24">
+                <div class="p-[25px]">
+                  <div *nzIf=""></div>
+
+                  <div *ngIf="isDarkMode(); then thenTemplateName else elseTemplateName"></div>
+
+                  <ng-template #thenTemplateName>
+                    <editor formControlName="descripcion" [init]="{
+                    plugins: 'lists table code help wordcount',
+                    toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | ltr rtl',
+                    skin: 'oxide-dark',
+                    content_css: 'dark'
+                  }"></editor>
+                  </ng-template>
+
+                  <ng-template #elseTemplateName>
+                    <editor formControlName="descripcion" [init]="{
+                  plugins: 'lists table code help wordcount',
+                  toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | ltr rtl',
+                    
+                  }"></editor>
+                  </ng-template>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+
+
+
+
+
+
+
+            <nz-form-item nzJustify="end">
+              <nz-form-control nzLg="5" nzMd="5" nzXs="24">
+                <div class="flex flex-wrap gap-[15px]">
+                  <button nz-button (click)="submitForm()"
+                    class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px] duration-300">
+                    <span>Crear ticket</span>
+                  </button>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </div>
+      </div>
+
+      <editor style="display: none;" [init]="{
+            plugins: 'lists link image table code help wordcount',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen preview save print | insertfile image media template link anchor codesample | ltr rtl',
+            skin: 'oxide-dark',
+            content_css: 'dark'
+          }"></editor>
+    </ng-container>
+  </div>
+</div>

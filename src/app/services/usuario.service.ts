@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UsuarioModel } from '../models/usuario/usuario-model';
 import { UsuarioListModel } from '../models/usuario/usuario-list-model';
 import { AgenteModel } from '../models/usuario/agente-model';
+import { PerfilModel } from '../models/usuario/perfil';
 
 
 @Injectable({
@@ -31,8 +32,13 @@ export class UsuarioService {
     let params = new HttpParams().append('sucursalId', `${sucursalId}`);
     return this.http.get<AgenteModel[]>(`${environment.apiBaseUrl}/api/${this.service}/GetAgentes`,{params});
   }
+
   GetSupervisores(sucursalId:string):Observable<AgenteModel[]>{
     let params = new HttpParams().append('sucursalId', `${sucursalId}`);
     return this.http.get<AgenteModel[]>(`${environment.apiBaseUrl}/api/${this.service}/GetSupervisores`,{params});
+  }
+
+  getPerfil():Observable<PerfilModel>{
+    return this.http.get<PerfilModel>(`${environment.apiBaseUrl}/api/${this.service}/GetPerfil`);
   }
 }
