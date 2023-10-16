@@ -12,8 +12,10 @@ import { PrioridadListModel } from 'src/app/models/prioridad/prioridad-list-mode
 import { DepartamentoService } from 'src/app/services/departamento.service';
 import { DepartamentoModel } from 'src/app/models/departamento/departamento-model';
 import { AreaService } from 'src/app/services/area.service';
-import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
+import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CrearTicketArchivoRequest, CrearTicketRequest } from 'src/app/models/ticket/create-ticket-request';
+import { TicketService } from 'src/app/services/ticket.service';
 
 @Component({
   selector: 'app-crear-ticket',
@@ -53,10 +55,17 @@ export class CrearTicketComponent {
   subCategorias:SubCategoriaListModel[]=[];
   prioridades:PrioridadListModel[]=[];
   departamentos:DepartamentoModel[]=[];
-  nzOptions:any[]=[];;
+  nzOptions:any[]=[];
+  archivos:NzUploadFile[]=[];
+  archivosList:string[]=[];
 
   selected:string;
   subcategoria:any;
+
+
+  crearTicketRequest:CrearTicketRequest;
+  archivosRequest:CrearTicketArchivoRequest[]=[];
+
   constructor( 
     private fb: FormBuilder, 
     private msg: NzMessageService,
@@ -65,6 +74,7 @@ export class CrearTicketComponent {
     private subCategoriaService:SubcategoriaService,
     private departamentoService:DepartamentoService,
     private areaService:AreaService,
+    private ticketService:TicketService,
     @Inject(DOCUMENT) private document: Document
     ) {}
     ngOnInit() {
@@ -139,18 +149,40 @@ export class CrearTicketComponent {
    
     submitForm(){
       if (this.validateForm.valid) {
-       
-console.log(this.validateForm.value);
-        /*
-        this.prioridadService.update(id, request)
+       console.log(this.archivos);
+       var archivosList:CrearTicketArchivoRequest[] = [];
+       this.archivos.forEach(archivo => {
+        if(archivo.status == 'done')
+        {
+          var archivoRequest:CrearTicketArchivoRequest = {
+            nombreFisico : archivo.response[0],
+            nombre : archivo.name
+          };
+          archivosList.push(archivoRequest);
+        }
+        
+        })
+
+        var request: CrearTicketRequest = {
+          //id: '',
+          areaId: this.validateForm.value.area,
+          prioridadId: this.validateForm.value.prioridad,
+          titulo: this.validateForm.value.titulo,
+          subCategoriaId: this.validateForm.value.subcategoria,
+          descripcion:this.validateForm.value.descripcion,
+          archivos: archivosList
+        };
+
+        
+        this.ticketService.crearTicket(request)
         .subscribe({
           next:(response)=>{
-            this.modalService.closeAll();
+            this.msg.success("Ticket creado correctamente.");
+            
             this.validateForm.reset();
             this.loadData();
           }
         })
-        */
       } else {
         Object.values(this.validateForm.controls).forEach((control) => {
           if (control.invalid) {
@@ -163,17 +195,19 @@ console.log(this.validateForm.value);
 
     onChanges(values: any): void {
       console.log(values);
+      
     }
 
     handleChange({ file, fileList }: NzUploadChangeParam): void {
       const status = file.status;
 
-      //console.log(file, fileList);
+      console.log(file.status);
 
       if (status !== 'uploading') {
         console.log(file, fileList);
       }
       if (status === 'done') {
+        this.archivos = fileList;
         this.msg.success(`${file.name} file uploaded successfully.`);
       } else if (status === 'error') {
         this.msg.error(`${file.name} file upload failed.`);
