@@ -1,6 +1,7 @@
 import { Component, TemplateRef,OnInit,ViewChild } from '@angular/core';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { HttpClient } from '@angular/common/http';
+import { TicketService } from 'src/app/services/ticket.service';
 
 interface Person {
   id: string;
@@ -31,35 +32,26 @@ export class TicketsActivosComponent {
   selectedValue = null;
   modalRef: NzModalRef;
 
-  constructor(private http: HttpClient, private modal: NzModalService) {}
+  isVisibleTop:boolean = false;
+
+  constructor(
+    private http: HttpClient, 
+    private ticketService:TicketService,) {}
 
   ngOnInit(): void {
-    this.http.get<Person[]>('assets/data/features/ticket-table.json').subscribe(
-      (data) => {
-        this.people = data;
-        this.filteredPeople = data;
-      },
-      (error) => {
-        console.log('Error reading JSON file:', error);
-      }
-    );
-  }
 
-  searchById(): void {
-    if (this.value) {
-      this.filteredPeople = this.people.filter(
-        (person) => person.id === this.value
-      );
-    } else {
-      this.filteredPeople = this.people;
-    }
+
+    this.ticketService.getTicketsByEstatus(1)
+    .subscribe({
+      next:(response)=>{
+        console.log(response);
+        this.people = response;
+        this.filteredPeople = response;
+      }
+    })
   }
 
   filterByContact(): void {
-    this.filteredPeople = this.applyFilters();
-  }
-
-  filterByStatus(): void {
     this.filteredPeople = this.applyFilters();
   }
 
@@ -70,15 +62,16 @@ export class TicketsActivosComponent {
     );
   }
 
-  createTplModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
-    this.modalRef = this.modal.create({
-      nzTitle: tplTitle,
-      nzContent: tplContent,
-      nzFooter: tplFooter,
-      nzMaskClosable: true,
-      nzClosable: true,
-      nzWidth: 620,
-      nzOnOk: () => console.log('Click ok')
-    });
+  showModalTop(): void {
+    this.isVisibleTop = true;
   }
+
+  handleOkTop(): void {
+    this.isVisibleTop = false;
+  }
+
+  handleCancelTop(): void {
+    this.isVisibleTop = false;
+  }
+  
 }

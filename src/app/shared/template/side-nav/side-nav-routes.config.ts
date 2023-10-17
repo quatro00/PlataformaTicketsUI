@@ -185,4 +185,54 @@ export const AgenteRoutes: SideNavInterface[] = [
       iconTheme: 'outline',
       icon: 'appstore-add',
       submenu:[]
-}]
+    },
+    {
+      path: 'supervisor/perfil',
+      title: 'Perfil',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'appstore-add',
+      submenu:[]
+    },
+    {
+      path: '',
+      title: 'Tickets',
+      iconType: 'nzIcon',
+      iconTheme: 'outline',
+      icon: 'appstore-add',
+      submenu:[
+        {
+          path: 'supervisor/tickets-abiertos',
+          title: 'Abiertos',
+          iconType: '',
+          icon: '',
+          iconTheme: '',
+          submenu: [],
+        },
+        {
+          path: 'supervisor/tickets-por-asignar',
+          title: 'Por asignar',
+          iconType: '',
+          icon: '',
+          iconTheme: '',
+          submenu: [],
+        },
+        {
+          path: 'supervisor/tickets-asignados',
+          title: 'Asignados',
+          iconType: '',
+          icon: '',
+          iconTheme: '',
+          submenu: [],
+        },
+        {
+          path: 'supervisor/tickets-cerrados',
+          title: 'Cerrados',
+          iconType: '',
+          icon: '',
+          iconTheme: '',
+          submenu: [],
+        },
+      ]
+    }
+]
