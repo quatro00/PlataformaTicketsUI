@@ -2,7 +2,7 @@
     <div nz-col nzXs="24" nzLg="16" class="mb-[25px]">
       <ng-container>
         <div class="bg-white dark:bg-white/10 rounded-10 pt-[25px] px-[25px] pb-[30px] shadow-[0_5px_20px_rgba(173,181,217,0.05)] mb-[25px]">
-            <h4 class="text-[20px] text-dark dark:text-white/[.87] font-medium mb-[25px]">Datos del ticket</h4>
+            <h4 class="text-[20px] text-dark dark:text-white/[.87] font-medium mb-[25px]">Ticket #{{ticket.folio}}</h4>
             <div nz-row nzGutter="25">
               <div nz-col nzXs="24" nzMd="8" class="mb-[25px]">
                 <div>
@@ -10,7 +10,7 @@
                   <div class="flex items-center mb-[30px] gap-[15px]">
                     <img class="w-[30px] h-[30px] rounded-full" [src]="'assets/images/avatars/tm1.png'" alt="author image">
                     <span
-                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">Nombre del solicitante</span>
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">{{ ticket.solicitante }}</span>
                   </div>
                 </div>
               </div>
@@ -22,7 +22,7 @@
                     <span
                     class="inline-flex items-center justify-center bg-danger/10 text-danger min-h-[24px] px-3 text-xs font-medium rounded-[15px] capitalize"
                   >
-                    Activo
+                    {{ticket.estatus}}
                   </span>
                   </div>
                 </div>
@@ -32,13 +32,13 @@
                 <div>
                   <h4 class="text-[14px] text-light dark:text-white/60 mb-[12px] font-normal">Prioridad:</h4>
                   <div class="flex items-center mb-[30px] gap-[15px]">
-                    <span style="background-color: rgb(12, 223, 75)"
+                    <span style="background-color: {{ticket.color}}"
                     class="inline-flex items-center justify-center min-h-[24px] px-3 text-xs font-medium rounded-[15px] capitalize"
                   >
                   &nbsp;
                   </span>
                   <span
-                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">Baja</span>
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">{{ticket.prioridad}}</span>
                   </div>
                 </div>
               </div>
@@ -48,7 +48,7 @@
                   <h4 class="text-[14px] text-light dark:text-white/60 mb-[12px] font-normal">Fecha de creación:</h4>
                   <div class="flex items-center mb-[30px] gap-[15px]">
                     <span
-                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">January 20, 2020</span>
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize"> {{ticket.fechaCreacion}}</span>
                   </div>
                 </div>
               </div>
@@ -58,7 +58,7 @@
                   <h4 class="text-[14px] text-light dark:text-white/60 mb-[12px] font-normal">Categoría:</h4>
                   <div class="flex items-center mb-[30px] gap-[15px]">
                     <span
-                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">Categoría del ticket</span>
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize"> {{ticket.categoria}}</span>
                   </div>
                 </div>
               </div>
@@ -68,7 +68,7 @@
                   <h4 class="text-[14px] text-light dark:text-white/60 mb-[12px] font-normal">Subcategoria:</h4>
                   <div class="flex items-center mb-[30px] gap-[15px]">
                     <span
-                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">Subcategoria del ticket</span>
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize"> {{ticket.subcategoria}}</span>
                   </div>
                 </div>
               </div>
@@ -78,7 +78,7 @@
                   <h4 class="text-[14px] text-light dark:text-white/60 mb-[12px] font-normal">Departamento:</h4>
                   <div class="flex items-center mb-[30px] gap-[15px]">
                     <span
-                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">Departamento del ticket</span>
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize"> {{ticket.departamento}}</span>
                   </div>
                 </div>
               </div>
@@ -88,7 +88,7 @@
                   <h4 class="text-[14px] text-light dark:text-white/60 mb-[12px] font-normal">Area:</h4>
                   <div class="flex items-center mb-[30px] gap-[15px]">
                     <span
-                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize">Area del ticket</span>
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize"> {{ticket.area}}</span>
                   </div>
                 </div>
               </div>
@@ -98,8 +98,10 @@
 
             
             <div class="">
-              <h4 class="text-[20px] font-semibold leading-1 text-theme-gray dark:text-white/60 mb-[12px]">Título: Título del ticket</h4>
-              <p class="text-theme-gray dark:text-white/60 text-[16px] font-normal">There are have a many variations of passages of Lorem Ipsum available, but the randomised words which don't look even slightly believable. If you are going to sdsss embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend</p>
+              <h4 class="text-[20px] font-semibold leading-1 text-theme-gray dark:text-white/60 mb-[12px]">Título:  {{ticket.titulo}}</h4>
+              <p [innerHtml]="ticket.descripcion" class="text-theme-gray dark:text-white/60 text-[16px] font-normal">
+                
+                </p>
             </div>
         </div>
         <div class="bg-white dark:bg-white/10 shadow-[0_5px_20px_rgba(173,181,217,.05)] pt-[25px] px-[25px] pb-[30px] rounded-10">
@@ -107,16 +109,16 @@
             <div class="max-h-[220px] overflow-x-hidden overflow-y-auto scrollbar" #scrollContainer>
               <!-- ticket user conversation -->
               <ul class="pe-[15px]">
-                <li class="flex items-center justify-between flex-wrap mb-[30px]">
+                <li class="flex items-center justify-between flex-wrap mb-[30px]" *ngFor="let mensaje of ticket.comentarios">
                   <div class="flex items-start w-full gap-[10px]">
                     <div class="rounded-full relative inline-flex items-center justify-center">
                       <img src="'assets/images/avatars/tm1.png'" class="bg-gray dark:bg-white/10 w-[30px] h-[30px] rounded-full" alt="image">
                     </div>
                     <div class="flex items-center justify-between flex-wrap w-full">
                       <div>
-                        <h6 class="text-[14px] font-medium leading-[1.4285714286] text-dark dark:text-white/[.87]">Juan perez</h6>
+                        <h6 class="text-[14px] font-medium leading-[1.4285714286] text-dark dark:text-white/[.87]">{{ mensaje.nombre }}</h6>
                         <div class="text-limit">
-                          <p class="text-[16px] font-normal leading-[1.6875] text-theme-gray dark:text-white/60">Mensaje</p>
+                          <p class="text-[16px] font-normal leading-[1.6875] text-theme-gray dark:text-white/60">{{ mensaje.texto }}</p>
                         </div>
                       </div>
                       <div class="last-chat-time unread">
@@ -130,11 +132,11 @@
               </ul>
             </div>
             <div class="flex items-center flex-wrap gap-[10px] max-xs:flex-col">
-              <form action="/" class="flex items-center bg-normalBG dark:bg-white/10 h-[70px] rounded-[35px] px-[25px] transition-all duration-300 flex-1">
+              <form nz-form  [formGroup]="mensajeForm" class="flex items-center bg-normalBG dark:bg-white/10 h-[70px] rounded-[35px] px-[25px] transition-all duration-300 flex-1">
                 <span class="text-[20px] text-light-extra dark:text-white/60" nz-icon [nzType]="'smile'" [nzTheme]="'outline'"></span>
-                <input #newMessageInput class="w-full h-full bg-transparent border-none shadow-none outline-none px-[20px] text-dark dark:text-white/[.87]" type="text" placeholder="Type your message..." aria-label="Message" (keyup.enter)="sendMessage(newMessageInput.value)">
+                <input formControlName="mensaje" class="w-full h-full bg-transparent border-none shadow-none outline-none px-[20px] text-dark dark:text-white/[.87]" type="text" placeholder="Type your message..." aria-label="Message" >
               </form>
-              <button nz-button class="border-none bg-primary hover:bg-primary-hbr w-[50px] h-[50px] p-[10px] rounded-full flex items-center justify-center" (click)="sendMessage(newMessageInput.value)">
+              <button (click)="enviarMensaje()" nz-button class="border-none bg-primary hover:bg-primary-hbr w-[50px] h-[50px] p-[10px] rounded-full flex items-center justify-center" >
                 <span class="text-[16px] text-white" nz-icon nzType="send" nzTheme="outline"></span>
               </button>
             </div>
@@ -149,27 +151,114 @@
             </div>
             <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
               <ul class="p-0">
-                <li class="p-0 last:mb-0 mb-[20px] border-none flex items-center justify-between">
+                <li *ngFor="let archivo of ticket.archivos" class="p-0 last:mb-0 mb-[20px] border-none flex items-center justify-between">
                   <div class="flex items-center gap-[15px]">
                     <div class="border-none p-0 items-center">
-                      <img class="max-w-[40px] rounded-[5px]" [src]="'assets/images/file/pdf.png'" alt="hexadash Team" />
+                      <img class="max-w-[40px] rounded-[5px]" [src]="'assets/images/file/'+ archivo.tipo +'.png'" alt="hexadash Team" />
                     </div>
                     <div>
                       <a class="text-theme-gray text-[15px] dark:text-white/60 hover:text-primary font-medium leading-[19px]" href="#">
-                       nombre
+                       {{ archivo.nombre }}
                       </a>
                       <div class="text-[15px] text-light dark:text-white/60 leading-1">
-                        size
+                        {{ archivo.tamano.toString('N') }}
                       </div>
                     </div>
                   </div>
-                  <button nz-button class="flex items-center justify-center border-none shadow-none bg-transparent">
+                  <a href="{{ archivo.nombreFisico }}" nz-button class="flex items-center justify-center border-none shadow-none bg-transparent">
                     <span class="text-[18px] text-light dark:text-white/60 dark:hover:text-primary hover:text-primary" nz-icon [nzType]="'download'" nzTheme="outline"></span>
-                  </button>
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
+      </ng-container>
+      <br/>
+      <ng-container >
+        <div class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
+            <div class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto">
+              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Adjuntar archivos</h1>
+            </div>
+            <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
+              <nz-upload
+                
+                class="block [&>div>div]:min-h-[110px] dark:[&>div]:bg-white/10 [&>div]:bg-[#fafafa] dark:[&>div]:border-white/10 dark:hover:[&>div]:border-primary"
+                  nzType="drag"
+                  [nzMultiple]="true"
+                  nzAction="https://localhost:7033/api/Ticket/UploadFile"
+                  
+                >
+                  <p class="ant-upload-text">Arrastra los archivos para adjuntarlos.</p>
+                </nz-upload>
+            </div>
+          </div>
+      </ng-container>
+      <br/>
+      <ng-container >
+        <form nz-form  [formGroup]="asignarAgentesForm">
+        <div class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
+            <div class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto">
+              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Asignar agentes</h1>
+            </div>
+            <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
+              <nz-form-item>
+                <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                  nzFor="pass">Agentes</nz-form-label>
+                  <nz-form-control placeholder="Agentes" nzErrorTip="Selecciona un usuario.">
+                    <nz-select formControlName="agentes" nzMode="tags" class="min-w-[260px] capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[5px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60">
+                      <nz-option nzLabel="1" nzValue="1"></nz-option>
+                      <nz-option nzLabel="2" nzValue="2"></nz-option>
+                      <nz-option nzLabel="3" nzValue="3"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+              </nz-form-item>
+              <nz-form-item nzJustify="end">
+                <nz-form-control nzLg="5" nzMd="5" nzXs="24">
+                  <div class="flex flex-wrap gap-[15px]">
+                    <button nz-button 
+                      class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px] duration-300">
+                      <span>Guardar</span>
+                    </button>
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+      <br/>
+      <ng-container >
+      <form nz-form  [formGroup]="actualizarEstatusForm">
+        <div class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
+            <div class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto">
+              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Asignar agentes</h1>
+            </div>
+            <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
+              <nz-form-item>
+                <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                  nzFor="pass">Estatus</nz-form-label>
+                  <nz-form-control placeholder="Agentes" nzErrorTip="Selecciona un usuario.">
+                    <nz-select formControlName="estatusId" class="min-w-[260px] capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[5px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60">
+                      <nz-option nzLabel="Abierto" nzValue="1"></nz-option>
+                      <nz-option nzLabel="En atención" nzValue="2"></nz-option>
+                      <nz-option nzLabel="Pendiente" nzValue="3"></nz-option>
+                      <nz-option nzLabel="Cerrado" nzValue="4"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+              </nz-form-item>
+              <nz-form-item nzJustify="end">
+                <nz-form-control nzLg="5" nzMd="5" nzXs="24">
+                  <div class="flex flex-wrap gap-[15px]">
+                    <button nz-button 
+                      class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px] duration-300">
+                      <span>Guardar</span>
+                    </button>
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </form>
       </ng-container>
     </div>
   </div>

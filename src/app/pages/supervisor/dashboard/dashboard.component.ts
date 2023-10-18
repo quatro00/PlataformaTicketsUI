@@ -2,6 +2,7 @@ import { Component, TemplateRef,OnInit,ViewChild } from '@angular/core';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { HttpClient } from '@angular/common/http';
 import { TicketService } from 'src/app/services/ticket.service';
+import { TicketModel } from 'src/app/models/ticket/ticket-model';
 
 
 
@@ -28,6 +29,7 @@ export class DashboardComponent {
   ticketsEnEspera:number = 0;
   ticketsCerrados:number = 0;
   isVisibleTop:boolean = false;
+  ticketDetalle:TicketModel;
 
   constructor(private http: HttpClient, private modal: NzModalService, private ticketService:TicketService) {}
 
@@ -83,8 +85,15 @@ export class DashboardComponent {
     );
   }
 
-  showModalTop(): void {
-    this.isVisibleTop = true;
+  showModalTop(id:string): void {
+    this.ticketService.getSupervisorTicketDetalle(id)
+  .subscribe({
+    next:(response)=>{
+      this.ticketDetalle = response;
+      this.isVisibleTop = true;
+    }})
+
+   
   }
 
   handleOkTop(): void {

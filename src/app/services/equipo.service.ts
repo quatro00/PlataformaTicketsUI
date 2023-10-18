@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { EquipoListModel } from '../models/equipo/equipo-list-model';
 import { EquipoModel } from '../models/equipo/equipo-model';
 import { AsignarUsuario } from '../models/equipo/asigna-usuario-model';
+import { AgenteModel } from '../models/usuario/agente-model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,15 @@ export class EquipoService {
 
   constructor(private http:HttpClient, private cookieService: CookieService) { }
 
+  getAgentesBySupervisor(ticketId:string):Observable<AgenteModel[]>{
+    let params = new HttpParams().append('departamentoId', `${ticketId}`);
+
+    return this.http.get<AgenteModel[]>(`${environment.apiBaseUrl}/api/${this.service}/GetAgentesBySupervisor`,{params});
+  }
+
   getAll():Observable<EquipoListModel[]>{
     return this.http.get<EquipoListModel[]>(`${environment.apiBaseUrl}/api/${this.service}`);
   }
-
   create(request:EquipoModel):Observable<EquipoModel>{
     return this.http.post<EquipoModel>(`${environment.apiBaseUrl}/api/${this.service}`,request);
   }

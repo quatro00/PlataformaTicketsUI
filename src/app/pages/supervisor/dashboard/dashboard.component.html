@@ -8,7 +8,7 @@ nzTitle="Información del ticket"
 nzWidth ="1600px"
 >
 <ng-container *nzModalContent>
- <app-ticket-detalle></app-ticket-detalle>
+ <app-ticket-detalle [ticket]="ticketDetalle"></app-ticket-detalle>
 </ng-container>
 <ng-template #modalFooter>
   
@@ -195,7 +195,7 @@ nzWidth ="1600px"
                       <td class="ltr:pr-[20px] rtl:pl-[20px] text-theme-gray dark:text-white/60 font-medium text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">
                       <ul class="flex items-center justify-end gap-[15px]">
                           <li>
-                            <div (click)="showModalTop()" class="flex items-center leading-none text-light dark:text-white/60 hover:text-primary">
+                            <div (click)="showModalTop(person.id)" class="flex items-center leading-none text-light dark:text-white/60 hover:text-primary">
                               <span class="[&>svg]:w-[14px] [&>svg]:h-[14px] cursor-pointer " nz-icon nzType="eye"
                                 nzTheme="outline"></span>
                             </div>
