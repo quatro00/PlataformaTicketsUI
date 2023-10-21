@@ -2,7 +2,17 @@
     <div nz-col nzXs="24" nzLg="16" class="mb-[25px]">
       <ng-container>
         <div class="bg-white dark:bg-white/10 rounded-10 pt-[25px] px-[25px] pb-[30px] shadow-[0_5px_20px_rgba(173,181,217,0.05)] mb-[25px]">
-            <h4 class="text-[20px] text-dark dark:text-white/[.87] font-medium mb-[25px]">Ticket #{{ticket.folio}}</h4>
+            <h4 class="text-[20px] text-dark dark:text-white/[.87] font-medium mb-[25px]">Ticket #{{ticket.folio}}
+              &nbsp;&nbsp;
+              <button nz-button *ngIf="ticket.estatus === 'En atención'"
+              class="capitalize bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px] [&>span]:inline-flex">
+              <span class="text-[18px]" nz-icon nzType="printer" nzTheme="outline"></span>
+              &nbsp;&nbsp;
+              Hoja de servicio
+            </button>
+
+            </h4>
+            
             <div nz-row nzGutter="25">
               <div nz-col nzXs="24" nzMd="8" class="mb-[25px]">
                 <div>
@@ -94,6 +104,18 @@
               </div>
 
 
+              <div nz-col nzXs="24" nzMd="8" class="mb-[25px]">
+                <div>
+                  <h4 class="text-[14px] text-light dark:text-white/60 mb-[12px] font-normal">Asignados:</h4>
+                  <div class="flex items-center mb-[30px] gap-[15px]">
+                    <span
+                      class="text-[14px] font-medium text-theme-gray dark:text-white/60 capitalize"> 
+                      <p *ngFor="let asignado of ticket.asignados">{{ asignado.nombre }}</p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             
@@ -171,14 +193,7 @@
                 </li>
               </ul>
             </div>
-          </div>
-      </ng-container>
-      <br/>
-      <ng-container >
-        <div class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
-            <div class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto">
-              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Adjuntar archivos</h1>
-            </div>
+
             <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
               <nz-upload
                 
@@ -191,31 +206,42 @@
                   <p class="ant-upload-text">Arrastra los archivos para adjuntarlos.</p>
                 </nz-upload>
             </div>
+
           </div>
       </ng-container>
       <br/>
-      <ng-container >
-        <form nz-form  [formGroup]="asignarAgentesForm">
+      <ng-container *ngIf="ticket.estatus === 'Abierto'">
+        <form nz-form  [formGroup]="asignarAgentesForm" >
         <div class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
             <div class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto">
-              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Asignar agentes</h1>
+              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Colocar en atención</h1>
             </div>
             <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
               <nz-form-item>
                 <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
-                  nzFor="pass">Agentes</nz-form-label>
+                  nzFor="pass">Asignados</nz-form-label>
                   <nz-form-control placeholder="Agentes" nzErrorTip="Selecciona un usuario.">
                     <nz-select formControlName="agentes" nzMode="tags" class="min-w-[260px] capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[5px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60">
-                      <nz-option nzLabel="1" nzValue="1"></nz-option>
-                      <nz-option nzLabel="2" nzValue="2"></nz-option>
-                      <nz-option nzLabel="3" nzValue="3"></nz-option>
+                      <nz-option *ngFor="let agente of agentes" [nzLabel]="agente.nombre" [nzValue]="agente.id"></nz-option>
                     </nz-select>
                   </nz-form-control>
               </nz-form-item>
+
+              <nz-form-item class="mb-[25px]">
+                <nz-form-label class="flex items-center font-medium dark:text-white/60 mb-[10px]" nzXs="24"
+                  nzFor="textarea1">Observaciones
+                </nz-form-label>
+                <nz-form-control nzXs="24">
+                  <textarea formControlName="observaciones"
+                    class="w-full resize-none rounded-4 border-normal border-1 text-[15px] dark:bg-white/10 dark:border-white/10 px-[20px] py-[12px] min-h-[50px] outline-none placeholder:text-[#A0A0A0] text-theme-gray dark:text-white/60"
+                    nz-input id="textarea1"></textarea>
+                </nz-form-control>
+              </nz-form-item>
+
               <nz-form-item nzJustify="end">
                 <nz-form-control nzLg="5" nzMd="5" nzXs="24">
                   <div class="flex flex-wrap gap-[15px]">
-                    <button nz-button 
+                    <button nz-button (click)="enviarAgentes()"
                       class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px] duration-300">
                       <span>Guardar</span>
                     </button>
@@ -227,11 +253,11 @@
         </form>
       </ng-container>
       <br/>
-      <ng-container >
+      <ng-container *ngIf="ticket.estatus === '1'">
       <form nz-form  [formGroup]="actualizarEstatusForm">
         <div class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
             <div class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto">
-              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Asignar agentes</h1>
+              <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Actualizar estatus</h1>
             </div>
             <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
               <nz-form-item>
@@ -260,6 +286,36 @@
           </div>
         </form>
       </ng-container>
+      <br/>
+      <ng-container *ngIf="ticket.estatus === '1'">
+        <form nz-form  [formGroup]="actualizarPrioridadForm">
+          <div class="bg-white dark:bg-white/10 m-0 p-0 text-theme-gray dark:text-white/60 text-[15px] rounded-10 relative">
+              <div class="px-[25px] text-dark dark:text-white/[.87] font-medium text-[17px] flex flex-wrap items-center justify-between max-sm:flex-col max-sm:h-auto">
+                <h1 class="mb-0 inline-flex items-center py-[16px] max-sm:pb-[5px] overflow-hidden whitespace-nowrap text-ellipsis text-[18px] font-semibold text-dark dark:text-white/[.87]">Actualizar prioridad</h1>
+              </div>
+              <div class="px-[25px] pb-[25px] max-sm:mt-[15px]">
+                <nz-form-item>
+                  <nz-form-label class="flex items-center font-medium dark:text-white/60" nzLg="6" nzMd="7" nzXs="24"
+                    nzFor="pass">Prioridad</nz-form-label>
+                    <nz-form-control placeholder="Agentes" nzErrorTip="Selecciona un usuario.">
+                      <nz-select formControlName="prioridad" class="min-w-[260px] capitalize [&>nz-select-top-control]:border-normal dark:[&>nz-select-top-control]:border-white/10 [&>nz-select-top-control]:bg-white [&>nz-select-top-control]:dark:bg-white/10 [&>nz-select-top-control]:shadow-none [&>nz-select-top-control]:text-dark [&>nz-select-top-control]:dark:text-white/60 [&>nz-select-top-control]:h-[50px] [&>nz-select-top-control]:flex [&>nz-select-top-control]:items-center [&>nz-select-top-control]:rounded-[5px] [&>nz-select-top-control]:px-[20px] [&>.ant-select-arrow]:text-theme-gray dark:[&>.ant-select-arrow]:text-white/60">
+                        <nz-option *ngFor="let prioridad of prioridades" [nzLabel]="prioridad.nombre" [nzValue]="prioridad.id"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nzJustify="end">
+                  <nz-form-control nzLg="5" nzMd="5" nzXs="24">
+                    <div class="flex flex-wrap gap-[15px]">
+                      <button nz-button 
+                        class="bg-primary hover:bg-primary-hbr border-solid border-1 border-primary text-white dark:text-white/[.87] text-[14px] font-semibold leading-[22px] inline-flex items-center justify-center rounded-[4px] px-[20px] h-[44px] duration-300">
+                        <span>Guardar</span>
+                      </button>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+          </form>
+        </ng-container>
     </div>
   </div>
-  

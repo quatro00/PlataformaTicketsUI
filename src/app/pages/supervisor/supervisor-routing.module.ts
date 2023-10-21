@@ -31,10 +31,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'tickets-asignados',
+    path: 'tickets-pendientes',
     component: TicketsAsignadosComponent,
     data: {
-        title: 'Tickets asignados',
+        title: 'Tickets pendientes',
     }
   },
   {
@@ -45,10 +45,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'tickets-por-asignar',
+    path: 'tickets-en-atencion',
     component: TicketsPorAsignarComponent,
     data: {
-        title: 'Tickets por asignar',
+        title: 'Tickets en atencion',
     }
   },
 ];

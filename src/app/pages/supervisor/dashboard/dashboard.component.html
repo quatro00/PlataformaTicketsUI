@@ -1,5 +1,22 @@
 <nz-modal
 [nzStyle]="{ top: '20px' }"
+[(nzVisible)]="isVisibleMateriales"
+nzTitle="Captura de materiales"
+[nzFooter]="modalFooter"
+(nzOnCancel)="handleCancelTop()"
+(nzOnOk)="handleOkTop()"
+nzWidth ="1600"
+>
+<ng-container *nzModalContent>
+  <app-editarmateriales [ticket]="ticketDetalle"></app-editarmateriales>
+</ng-container>
+<ng-template #modalFooter>
+  
+</ng-template>
+</nz-modal>
+
+<nz-modal
+[nzStyle]="{ top: '20px' }"
 [(nzVisible)]="isVisibleTop"
 nzTitle="Información del ticket"
 [nzFooter]="modalFooter"
@@ -194,12 +211,20 @@ nzWidth ="1600px"
                       <td class="ltr:pr-[20px] rtl:pl-[20px] text-theme-gray dark:text-white/60 font-medium text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">{{ person.fechaCreacion }}</td>
                       <td class="ltr:pr-[20px] rtl:pl-[20px] text-theme-gray dark:text-white/60 font-medium text-[15px] py-4 before:hidden border-none group-hover:bg-transparent">
                       <ul class="flex items-center justify-end gap-[15px]">
-                          <li>
+                          <li nz-tooltip="Ver detalle del ticket">
                             <div (click)="showModalTop(person.id)" class="flex items-center leading-none text-light dark:text-white/60 hover:text-primary">
                               <span class="[&>svg]:w-[14px] [&>svg]:h-[14px] cursor-pointer " nz-icon nzType="eye"
                                 nzTheme="outline"></span>
                             </div>
                           </li>
+
+                          <li nz-tooltip="Captura de materiales" *ngIf="person.estatus === 'En atención'">
+                            <div (click)="showModalMateriales(person.id)" class="flex items-center leading-none text-light dark:text-white/60 hover:text-primary">
+                              <span class="[&>svg]:w-[14px] [&>svg]:h-[14px] cursor-pointer " nz-icon nzType="edit"
+                                nzTheme="outline"></span>
+                            </div>
+                          </li>
+
                         </ul>
                       </td>
                     </tr>

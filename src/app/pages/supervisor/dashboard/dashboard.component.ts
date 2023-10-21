@@ -29,6 +29,7 @@ export class DashboardComponent {
   ticketsEnEspera:number = 0;
   ticketsCerrados:number = 0;
   isVisibleTop:boolean = false;
+  isVisibleMateriales:boolean = false;
   ticketDetalle:TicketModel;
 
   constructor(private http: HttpClient, private modal: NzModalService, private ticketService:TicketService) {}
@@ -96,11 +97,24 @@ export class DashboardComponent {
    
   }
 
+  showModalMateriales(id:string): void {
+    this.ticketService.getSupervisorTicketDetalle(id)
+  .subscribe({
+    next:(response)=>{
+      this.ticketDetalle = response;
+      this.isVisibleMateriales = true;
+    }})
+
+   
+  }
+
   handleOkTop(): void {
+    this.isVisibleMateriales = false;
     this.isVisibleTop = false;
   }
 
   handleCancelTop(): void {
+    this.isVisibleMateriales = false;
     this.isVisibleTop = false;
   }
   

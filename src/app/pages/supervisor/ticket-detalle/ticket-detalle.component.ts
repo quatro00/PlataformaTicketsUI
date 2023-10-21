@@ -8,6 +8,9 @@ import { CreateTicketMensajeRequest } from 'src/app/models/ticket/create-ticket-
 import { TicketComentarioService } from 'src/app/services/ticket-comentario.service';
 import { EquipoService } from 'src/app/services/equipo.service';
 import { AgenteModel } from 'src/app/models/usuario/agente-model';
+import { AsignarTicketUsuario } from 'src/app/models/ticket/asignar-ticket-usuario';
+import { PrioridadService } from 'src/app/services/prioridad.service';
+import { PrioridadListModel } from 'src/app/models/prioridad/prioridad-list-model';
 
 @Component({
   selector: 'app-ticket-detalle',
@@ -18,13 +21,15 @@ export class TicketDetalleComponent {
   //assets/data/pages/help-card.json
   @Input() ticket: TicketModel;
   agentes:AgenteModel[]=[];
+  prioridades:PrioridadListModel[]=[];
   //ticket:TicketModel;
   jsonData = jsonData; ticketUsers: any[];
   localStorageKey = 'ticket_users';
   actualizarEstatusForm!: UntypedFormGroup;
+  actualizarPrioridadForm!: UntypedFormGroup;
   asignarAgentesForm!: UntypedFormGroup;
   mensajeForm!: UntypedFormGroup;
-
+  
 
   @ViewChild('scrollContainer', { static: false }) scrollContainer: ElementRef;
 
@@ -32,11 +37,20 @@ export class TicketDetalleComponent {
     private http: HttpClient,
     private ticketService: TicketService,
     private ticketComentarioService: TicketComentarioService,
+    private prioridadService:PrioridadService,
     private fb: FormBuilder,
     private equipoService:EquipoService) { }
 
   ngOnInit() {
     console.log(this.ticket);
+    this.prioridadService.getPrioridades()
+    .subscribe({
+      next:(response)=>{
+        this.prioridades = response;
+        console.log('prioridades',response);
+      }
+    })
+
 
     this.equipoService.getAgentesBySupervisor(this.ticket.id)
     .subscribe({
@@ -46,13 +60,19 @@ export class TicketDetalleComponent {
       }
     })
 
+    this.actualizarPrioridadForm = this.fb.group({
+      prioridad: [null, [Validators.required]],
+      Observaciones: ['', [Validators.required]],
+    });
+
     this.actualizarEstatusForm = this.fb.group({
       estatusId: [null, [Validators.required]],
       Observaciones: ['', [Validators.required]],
     });
 
     this.asignarAgentesForm = this.fb.group({
-      agentes: [null, [Validators.required]]
+      agentes: [null, [Validators.required]],
+      observaciones: ['', [Validators.required]]
     });
 
     this.mensajeForm = this.fb.group({
@@ -74,10 +94,43 @@ export class TicketDetalleComponent {
       .subscribe({
         next: (response) => {
           this.ticket = response;
+          console.log(this.ticket);
         }
       })
   }
 
+  enviarAgentes(){
+    if (this.asignarAgentesForm.valid) {
+
+      console.log(this.asignarAgentesForm.value);
+      
+      
+      var request: AsignarTicketUsuario = {
+        ticketId: this.ticket.id,
+        agentes: this.asignarAgentesForm.value.agentes,
+        observaciones : this.asignarAgentesForm.value.observaciones
+      };
+      
+      console.log(request);
+
+      this.ticketService.asignarAgentes(request)
+        .subscribe({
+          next: (response) => {
+
+            this.mensajeForm.reset();
+            this.loadData();
+          }
+        })
+        
+    } else {
+      Object.values(this.mensajeForm.controls).forEach((control) => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
+  }
   enviarMensaje() {
     if (this.mensajeForm.valid) {
 

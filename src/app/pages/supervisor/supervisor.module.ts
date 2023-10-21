@@ -43,6 +43,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { SupervisordashboardComponent } from './supervisordashboard/supervisordashboard.component';
 import { TicketDetalleComponent } from './ticket-detalle/ticket-detalle.component';
+import { EditarmaterialesComponent } from './editarmateriales/editarmateriales.component';
 
 const antdModule = [
   NzUploadModule,
@@ -98,7 +99,8 @@ const antdModule = [
     SupervisorPerfilComponent,
     
     SupervisordashboardComponent,
-         TicketDetalleComponent
+         TicketDetalleComponent,
+         EditarmaterialesComponent
   ],
   imports: [
     CommonModule,

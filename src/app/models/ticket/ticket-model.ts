@@ -17,6 +17,8 @@ export class TicketModel{
     descripcion:string;
     archivos:TicketArchivoModel[];
     comentarios:TicketComentarioModel[];
+    asignados:TicketUsuarioAsignadoModel[];
+    materiales:TicketMaterialModel[];
 }
 
 export class TicketArchivoModel{
@@ -33,5 +35,18 @@ export class TicketComentarioModel{
     id:string;
     nombre:string;
     texto:string;
-    
+}
+
+export class TicketUsuarioAsignadoModel{
+    id:string;
+    nombre:string;
+}
+
+export class TicketMaterialModel{
+    id:string;
+    concepto:string;
+    tipo:string;
+    unidad:string;
+    cantidad:number;
+    precio:number;
 }
