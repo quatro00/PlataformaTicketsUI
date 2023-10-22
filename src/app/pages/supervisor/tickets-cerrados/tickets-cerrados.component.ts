@@ -34,15 +34,12 @@ export class TicketsCerradosComponent {
   ngOnInit(): void {
    
 
-    this.ticketService.getTicketsSupervisorByEstatus(2)
+    this.ticketService.getTicketsSupervisorByEstatus(4)
     .subscribe({
       next:(response)=>{
         console.log(response);
         
-        this.ticketsActivos = response.filter(x=>x.estatus == 'Abierto').length;
-        this.ticketsEnEspera = response.filter(x=>x.estatus == 'En atención' || x.estatus == 'Pendiente').length;
-        this.ticketsCerrados = response.filter(x=>x.estatus == 'Cerrado').length;
-
+       
         this.people = response;
         this.filteredPeople = response;
       }
